@@ -8,13 +8,14 @@ use Illuminate\Http\Request;
 
 class KategoriController extends Controller
 {
-      /**
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $kategories = Kategori::orderBy('created_at', 'desc')->paginate(10);
-        return view('backend.kategori.index', compact('kategories'));
+        $kategori = Kategori::orderBy('created_at', 'desc')->paginate(10);
+
+        return view('backend.kategori.index', compact('kategori'));
     }
 
     /**
@@ -95,7 +96,7 @@ class KategoriController extends Controller
                 'nama_kategori' => $request->nama_kategori,
             ]);
 
-            return redirect()->route('bacnkend.kategori.index')
+            return redirect()->route('backend.kategori.index')
                 ->with('success', 'Kategori "'.$oldName.'" berhasil diperbarui menjadi "'.$request->nama_kategori.'"');
 
         } catch (\Exception $e) {
@@ -116,7 +117,7 @@ class KategoriController extends Controller
 
             // Check if kategori has related quiz
             if ($kategori->quiz()->count() > 0) {
-                return redirect()->route('kategori.index')
+                return redirect()->route('backend.kategori.index')
                     ->with('error', 'Kategori "'.$namaKategori.'" tidak dapat dihapus karena masih memiliki quiz terkait.');
             }
 
@@ -132,7 +133,7 @@ class KategoriController extends Controller
     }
 
     /**
-     * Get all categories for dropdown/select options   
+     * Get all categories for dropdown/select options
      */
     public function getCategories()
     {

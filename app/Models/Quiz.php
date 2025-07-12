@@ -12,6 +12,7 @@ class Quiz extends Model
         'kode_quiz',
         'waktu_menit',
         'kategori_id',
+        'mata_pelajaran_id',
         'user_id',
         'tanggal_buat',
         'status',
@@ -30,6 +31,11 @@ class Quiz extends Model
     public function hasilUjian()
     {
         return $this->hasMany(HasilUjian::class);
+    }
+
+    public function mataPelajaran()
+    {
+        return $this->belongsTo(MataPelajaran::class);
     }
 
     public function kategori()

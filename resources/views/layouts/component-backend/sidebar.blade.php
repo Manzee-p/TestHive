@@ -59,6 +59,7 @@
           <div class="menu-inner-shadow"></div>
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
+            @if (Auth::user()->isAdmin == 1 || Auth::user()->isAdmin == 2)
              <li class="menu-item active open">
               <a href="{{ url('admin')}}" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-home-smile"></i>
@@ -83,32 +84,44 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href=""class="menu-link">
+                  <a href="{{ route('backend.matapelajaran.index') }}" class="menu-link">
+                    <div class="text-truncate" data-i18n="Kategori">Mata Pelajaran</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('backend.users.index')}}"class="menu-link">
                     <div class="text-truncate" data-i18n="User">User</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('backend.kelas.index') }}"class="menu-link">
+                    <div class="text-truncate" data-i18n="User">Kelas</div>
                   </a>
                 </li>
               </ul>
             </li>
-            <!-- Forms & Tables -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Kelolah Quiz</span></li>
-            <!-- Forms -->
+          @else
             <li class="menu-item">
               <a href="" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div class="text-truncate" data-i18n="Kelolah Quiz">Quiz</div>
+                <div class="text-truncate" data-i18n="Dashboard">Dashboard</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item active">
-                  <a href="{{ route('backend.kategori.index') }}" class="menu-link">
-                    <div class="text-truncate" data-i18n="Quiz">Kategori</div>
+                <li class="menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                  <a href="{{ route('dashboard') }}" class="sidebar-link justify-content-between">
+                    <span class="d-flex"><i class="bs bs-home-smile"></i></span>
+                    <div class="text-truncate" data-i18n="Quiz Terbaru">Quiz Terbaru</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href=""target="_blank"class="menu-link">
-                    <div class="text-truncate" data-i18n="Peringkat">Peringkat</div>
+                <li class="menu-item {{ request()->routeIs('histori-pengerjaan') ? 'active' : '' }}">
+                  <a href="{{ route('histori-pengerjaan') }}" target="_blank"class="menu-link">
+                    <span class="d-flex"><i class="bx bx-user"></i></span>
+                    <div class="text-truncate" data-i18n="Peringkat">Riwayat Pengerjaan</div>
                   </a>
                 </li>
               </ul>
             </li>
           </ul>
+          @endif
         </aside>

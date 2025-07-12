@@ -1,102 +1,376 @@
 @extends('layouts.backend')
 @section('content')
-<div class="content-wrapper">
-  <!-- Content -->
-  <div class="container-xxl flex-grow-1 container-p-y">
-    
-    {{-- Kartu Ucapan / Dashboard --}}
-    <div class="row">
-      <div class="col-xxl-8 mb-6 order-0">
-        <div class="card">
-          <div class="d-flex align-items-start row">
-            <div class="col-sm-7">
-              <div class="card-body">
-                <h5 class="card-title text-primary mb-3">Congratulations John! 🎉</h5>
-                <p class="mb-6">
-                  You have done 72% more sales today.<br />Check your new badge in your profile.
-                </p>
-                <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
-              </div>
-            </div>
-            <div class="col-sm-5 text-center text-sm-left">
-              <div class="card-body pb-0 px-0 px-md-6">
-                <img
-                  src="{{ asset('assets/backend/img/illustrations/man-with-laptop.png') }}"
-                  height="175"
-                  alt="View Badge User" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {{-- Daftar Kategori Diperlebar --}}
-    <div class="row mt-4">
-      <div class="col-12"> {{-- Lebar penuh --}}
-        <div class="card shadow-sm">
-          <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Daftar Kategori Soal</h5>
-            <a href="{{ route('backend.kategori.create') }}" class="btn btn-primary rounded-pill">
-              <i class='bx bx-plus me-2 align-middle'></i> Tambah Kategori
-            </a>
-          </div>
-          
-          <div class="card-body gx-4 px-2">
-            <div class="table-responsive">
-              <table class="table table-hover align-middle">
-                <thead class="text-muted">
-                  <tr>
-                    <th><i class='bx bx-hash me-1 align-middle'></i></th>
-                    <th><i class='bx bx-file me-2 align-middle'></i> Nama Kategori</th>
-                    <th class="text-center"><i class='bx bxs-cog me-2 align-middle'></i> Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @forelse($kategories as $index => $kategori)
-                    <tr>
-                      <td>
-                        <span class="badge bg-label-primary fs-6">{{ $index + 1 }}</span>
-                      </td>
-                      <td>
-                        <i class='bx bx-book-bookmark me-2 align-middle'></i> {{ $kategori->nama_kategori }}
-                      </td>
-                      <td class="text-center">
-                        <div class="d-flex justify-content-center gap-2">
-                          <a href="{{ route('backend.kategori.edit', $kategori->id) }}" 
-                            class="btn btn-warning btn-sm d-inline-flex align-items-center px-3" 
-                            title="Edit">
-                            <i class='bx bx-edit-alt text-white me-1'></i> Edit
-                          </a>
-                          <form action="{{ route('backend.kategori.destroy', $kategori->id) }}" 
-                                method="POST" 
-                                onsubmit="return confirm('Hapus kategori ini?')" 
-                                class="d-inline">
-                            @csrf @method('DELETE')
-                            <button type="submit" 
-                                    class="btn btn-danger btn-sm d-inline-flex align-items-center px-3" 
-                                    title="Hapus">
-                              <i class='bx bxs-trash text-white me-1'></i> Hapus
-                            </button>
-                          </form>
+    <div class="container-fluid">
+        <!-- Enhanced Header Section -->
+        <div class="card bg-gradient-primary shadow-sm position-relative overflow-hidden mb-5">
+            <div class="card-body px-4 py-4">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                        <h3 class="fw-bold mb-3 text-white">Semua kategori Anda!!</h3>
+                        <p class="text-white-75 mb-3">Kelola dan pantau semua kategori Anda dengan mudah</p>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb breadcrumb-light">
+                                <li class="breadcrumb-item">
+                                    <a class="text-white-75 text-decoration-none" href="">
+                                        <i class="ti ti-home me-1"></i>Kelola
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active text-white" aria-current="page">kategori</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-center">
+                            <img src="{{asset ('assets/backend/img/illustrations/man-with-laptop.png') }}" alt="kategori-dashboard"
+                                class="img-fluid" style="max-height: 120px; filter: brightness(1.1);" />
                         </div>
-                      </td>
-                    </tr>
-                  @empty
-                    <tr>
-                      <td colspan="3" class="text-center text-muted py-4">
-                        Belum ada kategori.
-                      </td>
-                    </tr>
-                  @endforelse
-                </tbody>
-              </table>
+                    </div>
+                </div>
             </div>
-          </div>
+            <!-- Decorative elements -->
+            <div class="position-absolute top-0 end-0 opacity-25">
+                <div class="bg-white rounded-circle"
+                    style="width: 200px; height: 200px; transform: translate(50px, -50px);"></div>
+            </div>
+            <div class="position-absolute bottom-0 start-0 opacity-25">
+                <div class="bg-white rounded-circle"
+                    style="width: 150px; height: 150px; transform: translate(-75px, 75px);"></div>
+            </div>
         </div>
-      </div>
+
+        <!-- Enhanced Action Section -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body py-3">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="d-flex align-items-center">
+                            <div class="me-3">
+                                <div class="rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center"
+                                    style="width: 40px; height: 40px;">
+                                    <i class="bx bx-list-ol p-3 text-primary"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 class="mb-1">Daftar kategori Anda</h5>
+                                <p class="text-muted mb-0">
+                                    @if ($kategori->count() > 0)
+                                        Menampilkan {{ $kategori->count() }} kategori dari total koleksi Anda
+                                    @else
+                                        Belum ada kategori yang dibuat - mulai dengan membuat kategori pertama!
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                        <button class="btn btn-primary btn-lg px-4" data-bs-toggle="modal"
+                            data-bs-target="#addCategoryModal">
+                            <i class="bx bx-plus me-2 p-2"></i>Buat kategori Baru
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced kategori Table -->
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-transparent border-bottom py-3">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bx bx-table me-2 text-primary"></i>Tabel kategori
+                    </h5>
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-primary-subtle text-primary px-3 py-2">
+                            {{ $kategori->count() }} kategori
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            @if ($kategori->count() > 0)
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover kategori-table mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col" class="border-0 fw-bold text-dark py-3">
+                                        <i class="bx bx-hash me-1"></i>No
+                                    </th>
+                                    <th scope="col" class="border-0 fw-bold text-dark py-3">
+                                        <i class="bx bxs-purchase-tag p-2 me-1"></i>Nama Kategori
+                                    </th>
+                                    <th scope="col" class="border-0 fw-bold text-dark py-3 text-center pe-4">
+                                        <i class="bx bx-cog me-1 P-2"></i>Aksi
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($kategori as $index => $item)
+                                    <tr class="kategori-row" data-kategori-id="{{ $item->id }}">
+                                        <td class="py-4">
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center me-3"
+                                                    style="width: 40px; height: 40px;">
+                                                    <span class="fw-bold text-primary">{{ $index + 1 }}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4">
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded-circle bg-info-subtle d-flex align-items-center justify-content-center me-3"
+                                                    style="width: 40px; height: 40px;">
+                                                    <i class="bx bxs-purchase-tag text-info"></i>
+                                                </div>
+                                                <div>
+                                                    <h6 class="mb-0 fw-bold text-dark" title="{{ $item->nama_kategori }}">
+                                                        {{ $item->nama_kategori }}
+                                                    </h6>
+                                                    <small class="text-muted">
+                                                        <i
+                                                            class="ti ti-calendar me-1"></i>{{ $item->created_at->format('d M Y, H:i') }}
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 text-center pe-4">
+                                            <div class="btn-group" role="group">
+                                                <button type="button" class="btn btn-warning btn-sm" title="Edit kategori"
+                                                    data-bs-toggle="modal" data-bs-target="#editCategoryModal"
+                                                    onclick="editCategory({{ $item->id }}, '{{ addslashes($item->nama_kategori) }}')">
+                                                    <i class="bx bxs-edit p-2 "></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-sm" title="Hapus kategori"
+                                                    onclick="deleteKategori({{ $item->id }}, '{{ addslashes($item->nama_kategori) }}')">
+                                                    <i class="bx bx-trash"></i>
+                                                </button>
+                                            </div>
+
+                                            <!-- Hidden delete form -->
+                                            <form id="delete-form-{{ $item->id }}"
+                                                action="{{ route('backend.kategori.destroy', $item->id) }}" method="POST"
+                                                style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @else
+                <!-- Enhanced Empty State -->
+                <div class="card-body text-center py-5">
+                    <div class="mb-4">
+                        <div class="rounded-circle bg-primary-subtle d-inline-flex align-items-center justify-content-center mb-3"
+                            style="width: 100px; height: 100px;">
+                            <i class="ti ti-tag text-primary" style="font-size: 48px;"></i>
+                        </div>
+                    </div>
+                    <h3 class="fw-bold text-dark mb-3">Belum Ada kategori</h3>
+                    <p class="text-muted mb-4 mx-auto" style="max-width: 400px;">
+                        Mulai dengan membuat kategori pertama untuk mengorganisir konten Anda dengan lebih baik!
+                    </p>
+                    <button class="btn btn-primary btn-lg px-5" data-bs-toggle="modal"
+                        data-bs-target="#addCategoryModal">
+                        <i class="ti ti-plus me-2"></i>Buat kategori Pertama
+                    </button>
+                </div>
+            @endif
+        </div>
     </div>
 
-  </div>
-</div>
+    <!-- Add Category Modal -->
+    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="addCategoryModalLabel">
+                        <i class="ti ti-plus me-2"></i>Tambah Kategori Baru
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <form action="{{ route('backend.kategori.store') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="nama_kategori" class="form-label fw-bold">
+                                <i class="ti ti-tag me-1"></i>Nama Kategori
+                            </label>
+                            <input type="text" class="form-control @error('nama_kategori') is-invalid @enderror"
+                                id="nama_kategori" name="nama_kategori" placeholder="Masukkan nama kategori..."
+                                value="{{ old('nama_kategori') }}" autofocus required>
+                            @error('nama_kategori')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div class="form-text">
+                                <i class="ti ti-info-circle me-1"></i>Contoh: Teknologi, Olahraga, Pendidikan, dll.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="ti ti-x me-1"></i>Batal
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="ti ti-check me-1"></i>Simpan Kategori
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Category Modal -->
+    <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-white">
+                    <h5 class="modal-title" id="editCategoryModalLabel">
+                        <i class="ti ti-edit me-2"></i>Edit Kategori
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <form id="editCategoryForm" action="" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="edit_nama_kategori" class="form-label fw-bold">
+                                <i class="ti ti-tag me-1"></i>Nama Kategori
+                            </label>
+                            <input type="text" class="form-control @error('nama_kategori') is-invalid @enderror"
+                                id="edit_nama_kategori" name="nama_kategori" placeholder="Masukkan nama kategori..."
+                                required>
+                            @error('nama_kategori')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div class="form-text">
+                                <i class="ti ti-info-circle me-1"></i>Contoh: Teknologi, Olahraga, Pendidikan, dll.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="ti ti-x me-1"></i>Batal
+                        </button>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="ti ti-check me-1"></i>Update Kategori
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Toast Messages -->
+    @if (session('success'))
+        <div class="position-fixed top-0 end-0 p-4" style="z-index: 1050;">
+            <div class="toast show border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-success text-white border-0">
+                    <div class="rounded-circle bg-white d-flex align-items-center justify-content-center me-2"
+                        style="width: 20px; height: 20px;">
+                        <i class="ti ti-check text-success" style="font-size: 12px;"></i>
+                    </div>
+                    <strong class="me-auto">Berhasil</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+                </div>
+                <div class="toast-body bg-white">
+                    {{ session('success') }}
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="position-fixed top-0 end-0 p-4" style="z-index: 1050;">
+            <div class="toast show border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-danger text-white border-0">
+                    <div class="rounded-circle bg-white d-flex align-items-center justify-content-center me-2"
+                        style="width: 20px; height: 20px;">
+                        <i class="ti ti-x text-danger" style="font-size: 12px;"></i>
+                    </div>
+                    <strong class="me-auto">Error</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+                </div>
+                <div class="toast-body bg-white">
+                    {{ session('error') }}
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <script>
+        // URL base untuk kategori
+        const kategoriBaseUrl = "{{ route('backend.kategori.index') }}";
+
+        // Delete confirmation function
+        function deleteKategori(kategoriId, kategoriName) {
+            if (confirm(
+                    `Apakah Anda yakin ingin menghapus kategori "${kategoriName}"?\n\nTindakan ini tidak dapat dibatalkan.`
+                )) {
+                document.getElementById('delete-form-' + kategoriId).submit();
+            }
+        }
+
+        // Edit category function
+        function editCategory(id, nama) {
+            // Set form action untuk update
+            const actionUrl = `${kategoriBaseUrl}/${id}`;
+            document.getElementById('editCategoryForm').action = actionUrl;
+
+            // Debug: log URL yang akan digunakan
+            console.log('Edit form action URL:', actionUrl);
+
+            // Set value input nama kategori
+            document.getElementById('edit_nama_kategori').value = nama;
+
+            // Clear any previous validation errors
+            const inputElement = document.getElementById('edit_nama_kategori');
+            inputElement.classList.remove('is-invalid');
+
+            // Remove any previous error messages
+            const errorElement = inputElement.nextElementSibling;
+            if (errorElement && errorElement.classList.contains('invalid-feedback')) {
+                errorElement.remove();
+            }
+        }
+
+        // Auto-hide toasts after 5 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            const toasts = document.querySelectorAll('.toast');
+            toasts.forEach(function(toast) {
+                setTimeout(function() {
+                    const bsToast = new bootstrap.Toast(toast);
+                    bsToast.hide();
+                }, 5000);
+            });
+
+            // Reset form saat modal ditutup
+            const editModal = document.getElementById('editCategoryModal');
+            if (editModal) {
+                editModal.addEventListener('hidden.bs.modal', function() {
+                    const form = document.getElementById('editCategoryForm');
+                    form.reset();
+                    form.action = '';
+
+                    // Clear validation errors
+                    const inputElement = document.getElementById('edit_nama_kategori');
+                    inputElement.classList.remove('is-invalid');
+
+                    // Remove any error messages
+                    const errorElement = inputElement.nextElementSibling;
+                    if (errorElement && errorElement.classList.contains('invalid-feedback')) {
+                        errorElement.remove();
+                    }
+                });
+            }
+        });
+    </script>
+    @include('layouts.component-backend.css')
 @endsection

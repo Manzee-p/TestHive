@@ -16,10 +16,10 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check() || Auth::user()->role !== 'admin') {
-            abort(403, 'Akses ditolak. Halaman ini hanya untuk admin.');
+        if (Auth::user()->isAdmin == 1) {
+            return $next($request);
+        } else {
+            return abort(403, 'akses di tolak');
         }
-
-        return $next($request);
     }
 }

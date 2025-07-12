@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -19,6 +20,8 @@ return new class extends Migration
             $table->string('kode_quiz', 10)->unique();
             $table->integer('waktu_menit');
             $table->unsignedBigInteger('kategori_id');
+            $table->unsignedBigInteger('mata_pelajaran_id'); // Tambahkan ini
+            $table->foreign('mata_pelajaran_id')->references('id')->on('mata_pelajarans')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->enum('status', ['Umum', 'Privat']);
             $table->dateTime('tanggal_buat')->default(DB::raw('CURRENT_TIMESTAMP'));

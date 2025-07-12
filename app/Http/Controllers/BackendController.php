@@ -19,7 +19,7 @@ class BackendController extends Controller
             ->orderBy('created_at', 'desc');
 
         $showAll = $request->get('show_all', false);
-        $categories = Kategori::all();
+        $kategories = Kategori::all();
 
         if (! $showAll) {
             $allQuizzes = $query->get();
@@ -28,7 +28,7 @@ class BackendController extends Controller
             $quizzes = $query->paginate(12);
         }
 
-        return view('backend.index', compact('quizzes', 'showAll', 'categories', 'user'));
+        return view('backend.index', compact('quizzes', 'showAll', 'kategories', 'user'));
     }
 
     public function indexAlternative(Request $request)
@@ -47,14 +47,14 @@ class BackendController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->paginate(12);
 
-            $categories = Kategori::all();
+            $kategories = Kategori::all();
 
-            return view('backend.all', compact('quizzes', 'allQuizzes', 'categories'));
+            return view('backend.all', compact('quizzes', 'allQuizzes', 'kategories'));
         } else {
             $quizzes = $allQuizzes->where('created_at', '>=', now()->subDays(7));
-            $categories = Kategori::all();
+            $kategories = Kategori::all();
 
-            return view('backend.index', compact('quizzes', 'allQuizzes', 'categories'));
+            return view('backend.index', compact('quizzes', 'allQuizzes', 'kategories'));
         }
     }
 }
