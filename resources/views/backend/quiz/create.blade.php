@@ -1,12 +1,14 @@
+
 @extends('layouts.backend')
 @section('content')
+    @include('layouts.components-backend.css')
     <div class="container-fluid">
 
         <div class="card bg-gradient-primary shadow-sm position-relative overflow-hidden mb-5 border-0">
             <div class="card-body px-4 py-4">
                 <div class="row align-items-center">
                     <div class="col-9">
-                        <h3 class="fw-bold mb-3 text-white">Buat Quiz baru??</h3>
+                        <h3 class="fw-bold mb-3 text-white">Buat Quiz baru</h3>
                         <p class="text-white-75 mb-3">Buat dan kelola quiz anda dengan mudah</p>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb breadcrumb-light">
@@ -22,7 +24,7 @@
                     </div>
                     <div class="col-3">
                         <div class="text-center">
-                            <img src="{{asset ('assets/backend/img/illustrations/man-with-laptop.png') }}" alt="quiz-dashboard"
+                            <img src="{{ asset('assets/backend/images/breadcrumb/ChatBc.png') }}" alt="quiz-dashboard"
                                 class="img-fluid" style="max-height: 120px; filter: brightness(1.1);" />
                         </div>
                     </div>
@@ -38,7 +40,6 @@
                     style="width: 150px; height: 150px; transform: translate(-75px, 75px);"></div>
             </div>
         </div>
-
 
         <!-- Quiz Setup Form -->
         <div class="card border-0" id="quiz-setup-card">
@@ -85,23 +86,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="categories" class="form-label">Kategori <span
-                                        class="text-danger">*</span></label>
-                                <select class="form-select @error('categories') is-invalid @enderror" id="categories"
-                                    name="categories" required>
-                                    <option value="" disabled selected>Pilih Kategori Quiz</option>
-                                    @foreach ($categories as $items)
-                                        <option value="{{ $items->id }}">{{ $items->nama_kategori }}</option>
-                                    @endforeach
-                                </select>
-                                @error('categories')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="mapel" class="form-label">Mata Pelajaran <span
                                         class="text-danger">*</span></label>
@@ -109,10 +94,66 @@
                                     name="mapel" required>
                                     <option value="" disabled selected>Pilih Mata Pelajaran Quiz</option>
                                     @foreach ($mataPelajaran as $items)
-                                        <option value="{{ $items->id }}">{{ $items->nama_mapel }}</option>
+                                        <option value="{{ $items->id }}"
+                                            {{ old('mapel') == $items->id ? 'selected' : '' }}>
+                                            {{ $items->nama_mapel }}
+                                        </option>
                                     @endforeach
                                 </select>
-                                @error('mataPelajaran')
+                                @error('mapel')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="categories" class="form-label">Kategori <span
+                                        class="text-danger">*</span></label>
+                                <select class="form-select @error('categories') is-invalid @enderror" id="categories"
+                                    name="categories" required>
+                                    <option value="" disabled selected>Pilih Kategori Quiz</option>
+                                    @foreach ($categories as $items)
+                                        <option value="{{ $items->id }}"
+                                            {{ old('categories') == $items->id ? 'selected' : '' }}>
+                                            {{ $items->nama_kategori }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('categories')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="pengulangan" class="form-label">Pengulangan Pekerjaan<span
+                                        class="text-danger">*</span></label>
+                                <select class="form-select @error('pengulangan') is-invalid @enderror" id="pengulangan"
+                                    name="pengulangan" required>
+                                    <option value="" disabled selected>Boleh / Tidak</option>
+                                    <option value="Boleh">Boleh</option>
+                                    <option value="Tidak">Tidak</option>
+                                </select>
+                                @error('pengulangan')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="aktivasi" class="form-label">Status Aktivasi <span
+                                        class="text-danger">*</span></label>
+                                <select class="form-select @error('aktivasi') is-invalid @enderror" id="aktivasi"
+                                    name="aktivasi" required>
+                                    <option value="" disabled selected>Aktif / Nonaktif</option>
+                                    <option value="aktif" {{ old('aktivasi') == 'aktif' ? 'selected' : '' }}>Aktif
+                                    </option>
+                                    <option value="non aktif" {{ old('aktivasi') == 'non aktif' ? 'selected' : '' }}>Non
+                                        Aktif</option>
+                                </select>
+                                @error('aktivasi')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -123,9 +164,11 @@
                                         class="text-danger">*</span></label>
                                 <select class="form-select @error('visibility') is-invalid @enderror" id="visibility"
                                     name="visibility" required>
-                                    <option value="" disabled selected>Pilih Status</option>
-                                    <option value="Privat">Privat</option>
-                                    <option value="Umum">Umum</option>
+                                    <option value="" disabled selected>Umum / Privat</option>
+                                    <option value="Privat" {{ old('visibility') == 'Privat' ? 'selected' : '' }}>Privat
+                                    </option>
+                                    <option value="Umum" {{ old('visibility') == 'Umum' ? 'selected' : '' }}>Umum
+                                    </option>
                                 </select>
                                 @error('visibility')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -171,6 +214,9 @@
                             <p class="mb-1"><strong>Durasi:</strong> <span id="display-duration"></span> menit</p>
                             <p class="mb-1"><strong>Status:</strong> <span id="display-visibility"></span></p>
                             <p class="mb-1"><strong>Kategori:</strong> <span id="display-categories"></span></p>
+                            <p class="mb-1"><strong>Status Aktivasi:</strong> <span id="display-aktivasi"></span></p>
+                            <p class="mb-1"><strong>Pengulangan Pekerjaan:</strong> <span
+                                    id="display-pengulangan"></span></p>
                             <p class="mb-1"><strong>Mata Pelajaran:</strong> <span id="display-mapel"></span></p>
                             <p class="mb-0"><strong>Deskripsi:</strong> <span id="display-description"></span></p>
                         </div>
@@ -178,7 +224,7 @@
                 </div>
 
                 <!-- Final Quiz Form -->
-                <form id="final-quiz-form" action="{{ route('backend.quiz.store') }}" method="POST">
+                <form id="final-quiz-form" action="{{ route('quiz.store') }}" method="POST">
                     @csrf
                     <!-- Hidden fields for quiz info -->
                     <input type="hidden" name="quiz_title" id="hidden-title">
@@ -187,7 +233,9 @@
                     <input type="hidden" name="description" id="hidden-description">
                     <input type="hidden" name="visibility" id="hidden-visibility">
                     <input type="hidden" name="categories" id="hidden-categories">
+                    <input type="hidden" name="aktivasi" id="hidden-aktivasi">
                     <input type="hidden" name="mapel" id="hidden-mapel">
+                    <input type="hidden" name="pengulangan" id="hidden-pengulangan">
 
                     <!-- Dynamic Questions Container -->
                     <div id="questions-list"></div>
@@ -215,15 +263,19 @@
             setupForm.addEventListener('submit', function(e) {
                 e.preventDefault();
 
-                const title = document.getElementById('quiz-title').value;
+                const title = document.getElementById('quiz-title').value.trim();
                 const numQuestions = parseInt(document.getElementById('num-questions').value);
                 const duration = document.getElementById('duration').value;
-                const description = document.getElementById('quiz-description').value;
+                const description = document.getElementById('quiz-description').value.trim();
                 const visibility = document.getElementById('visibility').value;
                 const categories = document.getElementById('categories').value;
                 const mapel = document.getElementById('mapel').value;
+                const aktivasi = document.getElementById('aktivasi').value;
+                const pengulangan = document.getElementById('pengulangan').value; // Tambahkan ini
 
-                if (!title || !numQuestions || !duration || !visibility || !categories || !mapel) {
+                // Validation
+                if (!title || !numQuestions || !duration || !visibility || !categories || !mapel || !
+                    aktivasi || !pengulangan) {
                     alert('Harap isi semua field yang wajib diisi.');
                     return;
                 }
@@ -233,13 +285,24 @@
                     return;
                 }
 
-                // Get category name from selected option
+                if (parseInt(duration) < 1 || parseInt(duration) > 300) {
+                    alert('Durasi harus antara 1 sampai 300 menit.');
+                    return;
+                }
+
+                // Get option text from selected values
                 const categorySelect = document.getElementById('categories');
                 const selectedCategoryName = categorySelect.options[categorySelect.selectedIndex].text;
 
-                // Get mata pelajaran name from selected option
+                const aktivasiSelect = document.getElementById('aktivasi');
+                const selectedAktivasiName = aktivasiSelect.options[aktivasiSelect.selectedIndex].text;
+
                 const mapelSelect = document.getElementById('mapel');
                 const selectedMapelName = mapelSelect.options[mapelSelect.selectedIndex].text;
+
+                const pengulanganSelect = document.getElementById('pengulangan');
+                const selectedPengulanganName = pengulanganSelect.options[pengulanganSelect.selectedIndex]
+                    .text;
 
                 // Update display information
                 document.getElementById('display-title').textContent = title;
@@ -250,6 +313,9 @@
                 document.getElementById('display-visibility').textContent = visibility;
                 document.getElementById('display-categories').textContent = selectedCategoryName;
                 document.getElementById('display-mapel').textContent = selectedMapelName;
+                document.getElementById('display-aktivasi').textContent = selectedAktivasiName;
+                document.getElementById('display-pengulangan').textContent =
+                    selectedPengulanganName; // Tambahkan ini
 
                 // Update hidden fields
                 document.getElementById('hidden-title').value = title;
@@ -257,8 +323,10 @@
                 document.getElementById('hidden-duration').value = duration;
                 document.getElementById('hidden-description').value = description;
                 document.getElementById('hidden-visibility').value = visibility;
+                document.getElementById('hidden-aktivasi').value = aktivasi;
                 document.getElementById('hidden-categories').value = categories;
                 document.getElementById('hidden-mapel').value = mapel;
+                document.getElementById('hidden-pengulangan').value = pengulangan; // Tambahkan ini
 
                 // Generate question forms
                 generateQuestionForms(numQuestions);
@@ -305,53 +373,25 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="option-a-${questionNumber}" class="form-label">Pilihan A <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="option-a-${questionNumber}" name="questions[${questionNumber}][option_a]" required placeholder="Masukkan pilihan A">
+                            <label for="question-type-${questionNumber}" class="form-label">Tipe Soal <span class="text-danger">*</span></label>
+                            <select class="form-select" id="question-type-${questionNumber}" name="questions[${questionNumber}][type]" required onchange="handleQuestionTypeChange(${questionNumber})">
+                                <option value="">Pilih Tipe Soal</option>
+                                <option value="pilihan_ganda">Pilihan Ganda</option>
+                                <option value="essay">Essay</option>
+                                <option value="benar_salah">Benar/Salah</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="option-b-${questionNumber}" class="form-label">Pilihan B <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="option-b-${questionNumber}" name="questions[${questionNumber}][option_b]" required placeholder="Masukkan pilihan B">
+                            <label for="question-weight-${questionNumber}" class="form-label">Bobot Soal <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="question-weight-${questionNumber}" name="questions[${questionNumber}][weight]" min="1" max="100" required placeholder="1-100">
                         </div>
                     </div>
                 </div>
                 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="option-c-${questionNumber}" class="form-label">Pilihan C <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="option-c-${questionNumber}" name="questions[${questionNumber}][option_c]" required placeholder="Masukkan pilihan C">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="option-d-${questionNumber}" class="form-label">Pilihan D <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="option-d-${questionNumber}" name="questions[${questionNumber}][option_d]" required placeholder="Masukkan pilihan D">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mb-3">
-                    <label class="form-label">Jawaban Benar <span class="text-danger">*</span></label>
-                    <div class="d-flex gap-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="questions[${questionNumber}][correct_answer]" id="correct-a-${questionNumber}" value="A" required>
-                            <label class="form-check-label" for="correct-a-${questionNumber}">A</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="questions[${questionNumber}][correct_answer]" id="correct-b-${questionNumber}" value="B" required>
-                            <label class="form-check-label" for="correct-b-${questionNumber}">B</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="questions[${questionNumber}][correct_answer]" id="correct-c-${questionNumber}" value="C" required>
-                            <label class="form-check-label" for="correct-c-${questionNumber}">C</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="questions[${questionNumber}][correct_answer]" id="correct-d-${questionNumber}" value="D" required>
-                            <label class="form-check-label" for="correct-d-${questionNumber}">D</label>
-                        </div>
-                    </div>
+                <div id="question-options-${questionNumber}">
+                    <!-- Dynamic options will be inserted here -->
                 </div>
             </div>
         `;
@@ -359,43 +399,231 @@
                 return card;
             }
 
+            // Handle question type change
+            window.handleQuestionTypeChange = function(questionNumber) {
+                const typeSelect = document.getElementById(`question-type-${questionNumber}`);
+                const optionsContainer = document.getElementById(`question-options-${questionNumber}`);
+                const selectedType = typeSelect.value;
+
+                optionsContainer.innerHTML = '';
+
+                switch (selectedType) {
+                    case 'pilihan_ganda':
+                        optionsContainer.innerHTML = createMultipleChoiceOptions(questionNumber);
+                        break;
+                    case 'essay':
+                        optionsContainer.innerHTML = createEssayOptions(questionNumber);
+                        break;
+                    case 'benar_salah':
+                        optionsContainer.innerHTML = createTrueFalseOptions(questionNumber);
+                        break;
+                }
+            };
+
+            // Create multiple choice options
+            function createMultipleChoiceOptions(questionNumber) {
+                return `
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="option-a-${questionNumber}" class="form-label">Pilihan A <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="option-a-${questionNumber}" name="questions[${questionNumber}][option_a]" required placeholder="Masukkan pilihan A">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="option-b-${questionNumber}" class="form-label">Pilihan B <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="option-b-${questionNumber}" name="questions[${questionNumber}][option_b]" required placeholder="Masukkan pilihan B">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="option-c-${questionNumber}" class="form-label">Pilihan C <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="option-c-${questionNumber}" name="questions[${questionNumber}][option_c]" required placeholder="Masukkan pilihan C">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="option-d-${questionNumber}" class="form-label">Pilihan D <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="option-d-${questionNumber}" name="questions[${questionNumber}][option_d]" required placeholder="Masukkan pilihan D">
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Jawaban Benar <span class="text-danger">*</span></label>
+                <div class="d-flex gap-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="questions[${questionNumber}][correct_answer]" id="correct-a-${questionNumber}" value="A" required>
+                        <label class="form-check-label" for="correct-a-${questionNumber}">A</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="questions[${questionNumber}][correct_answer]" id="correct-b-${questionNumber}" value="B" required>
+                        <label class="form-check-label" for="correct-b-${questionNumber}">B</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="questions[${questionNumber}][correct_answer]" id="correct-c-${questionNumber}" value="C" required>
+                        <label class="form-check-label" for="correct-c-${questionNumber}">C</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="questions[${questionNumber}][correct_answer]" id="correct-d-${questionNumber}" value="D" required>
+                        <label class="form-check-label" for="correct-d-${questionNumber}">D</label>
+                    </div>
+                </div>
+            </div>
+        `;
+            }
+
+            // Create essay options
+            function createEssayOptions(questionNumber) {
+                return `
+            <div class="mb-3">
+                <label for="essay-answer-${questionNumber}" class="form-label">Jawaban Model (Opsional)</label>
+                <textarea class="form-control" id="essay-answer-${questionNumber}" name="questions[${questionNumber}][correct_answer]" rows="3" placeholder="Masukkan jawaban model untuk referensi penilaian (opsional)"></textarea>
+                <small class="form-text text-muted">Jawaban model ini akan digunakan sebagai referensi untuk penilaian manual.</small>
+            </div>
+        `;
+            }
+
+            // Create true/false options
+            function createTrueFalseOptions(questionNumber) {
+                return `
+            <div class="mb-3">
+                <label class="form-label">Jawaban Benar <span class="text-danger">*</span></label>
+                <div class="d-flex gap-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="questions[${questionNumber}][correct_answer]" id="correct-true-${questionNumber}" value="Benar" required>
+                        <label class="form-check-label" for="correct-true-${questionNumber}">Benar</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="questions[${questionNumber}][correct_answer]" id="correct-false-${questionNumber}" value="Salah" required>
+                        <label class="form-check-label" for="correct-false-${questionNumber}">Salah</label>
+                    </div>
+                </div>
+            </div>
+        `;
+            }
+
             // Form validation before submission
             document.getElementById('final-quiz-form').addEventListener('submit', function(e) {
                 const questions = document.querySelectorAll('[name*="[text]"]');
-                const options = document.querySelectorAll('[name*="[option_"]');
-                const correctAnswers = document.querySelectorAll('[name*="[correct_answer]"]:checked');
-
                 let isValid = true;
                 let errorMessage = '';
 
-                // Check if all questions have text
+                // Validate each question
                 questions.forEach((question, index) => {
+                    const questionNumber = index + 1;
+                    const typeSelect = document.getElementById(`question-type-${questionNumber}`);
+                    const weightInput = document.getElementById(
+                        `question-weight-${questionNumber}`);
+
                     if (!question.value.trim()) {
                         isValid = false;
-                        errorMessage = `Harap isi teks untuk Soal ${index + 1}.`;
+                        errorMessage = `Harap isi teks untuk Soal ${questionNumber}.`;
                         return;
                     }
-                });
 
-                // Check if all options are filled
-                if (isValid) {
-                    options.forEach((option, index) => {
-                        if (!option.value.trim()) {
+                    if (!typeSelect.value) {
+                        isValid = false;
+                        errorMessage = `Harap pilih tipe soal untuk Soal ${questionNumber}.`;
+                        return;
+                    }
+
+                    if (!weightInput.value || weightInput.value < 1 || weightInput.value > 100) {
+                        isValid = false;
+                        errorMessage = `Harap isi bobot soal (1-100) untuk Soal ${questionNumber}.`;
+                        return;
+                    }
+
+                    // Validate based on question type
+                    const questionType = typeSelect.value;
+
+                    if (questionType === 'pilihan_ganda') {
+                        const options = [
+                            document.getElementById(`option-a-${questionNumber}`),
+                            document.getElementById(`option-b-${questionNumber}`),
+                            document.getElementById(`option-c-${questionNumber}`),
+                            document.getElementById(`option-d-${questionNumber}`)
+                        ];
+
+                        options.forEach((option, optIndex) => {
+                            if (!option.value.trim()) {
+                                isValid = false;
+                                errorMessage =
+                                    `Harap isi Pilihan ${String.fromCharCode(65 + optIndex)} untuk Soal ${questionNumber}.`;
+                                return;
+                            }
+                        });
+
+                        const correctAnswer = document.querySelector(
+                            `input[name="questions[${questionNumber}][correct_answer]"]:checked`
+                        );
+                        if (!correctAnswer) {
                             isValid = false;
-                            const questionNum = Math.floor(index / 4) + 1;
-                            const optionLetter = String.fromCharCode(65 + (index % 4));
                             errorMessage =
-                                `Harap isi Pilihan ${optionLetter} untuk Soal ${questionNum}.`;
+                                `Harap pilih jawaban benar untuk Soal ${questionNumber}.`;
                             return;
                         }
-                    });
-                }
+                    } else if (questionType === 'checkbox') {
+                        const checkboxOptions = document.querySelectorAll(
+                            `input[name="questions[${questionNumber}][checkbox_options][]"]`);
+                        const correctAnswers = document.querySelectorAll(
+                            `input[name="questions[${questionNumber}][checkbox_correct][]"]:checked`
+                        );
 
-                // Check if all questions have correct answers selected
-                if (isValid && correctAnswers.length !== questions.length) {
-                    isValid = false;
-                    errorMessage = 'Harap pilih jawaban benar untuk semua soal.';
-                }
+                        // Validasi bahwa minimal ada 2 opsi
+                        if (checkboxOptions.length < 2) {
+                            isValid = false;
+                            errorMessage = `Soal ${questionNumber} harus memiliki minimal 2 opsi.`;
+                            return;
+                        }
+
+                        // Validasi bahwa semua opsi yang ada harus terisi
+                        let hasEmptyOption = false;
+                        checkboxOptions.forEach((option, index) => {
+                            if (!option.value.trim()) {
+                                hasEmptyOption = true;
+                            }
+                        });
+
+                        if (hasEmptyOption) {
+                            isValid = false;
+                            errorMessage = `Harap isi semua opsi untuk Soal ${questionNumber}.`;
+                            return;
+                        }
+
+                        // Validasi bahwa minimal 1 jawaban benar dipilih
+                        if (correctAnswers.length === 0) {
+                            isValid = false;
+                            errorMessage =
+                                `Harap pilih minimal 1 jawaban benar untuk Soal ${questionNumber}.`;
+                            return;
+                        }
+
+                        // Debug: tampilkan berapa opsi yang akan dikirim
+                        console.log(
+                            `Soal ${questionNumber}: ${checkboxOptions.length} opsi akan dikirim`
+                        );
+                        console.log(`Jawaban benar: ${correctAnswers.length} dipilih`);
+                    }
+
+                    const allQuestions = document.querySelectorAll('[name*="[text]"]');
+                    allQuestions.forEach((question, index) => {
+                        const questionNumber = index + 1;
+                        const typeSelect = document.getElementById(`question-type-${questionNumber}`);
+                        
+                        if (typeSelect && typeSelect.value === 'checkbox') {
+                            debugCheckboxData(questionNumber);
+                        }
+                    });
+
+                    if (isValid) {
+                        console.log('Form akan disubmit dengan semua data checkbox');
+                    }
+
+
+                });
 
                 if (!isValid) {
                     e.preventDefault();

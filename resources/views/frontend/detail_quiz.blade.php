@@ -1,4 +1,3 @@
-
 @extends('layouts.backend')
 @section('content')
     <div class="container-fluid">
@@ -17,21 +16,21 @@
                 <!-- Quiz Info -->
                 <div class="quiz-info">
                     <div class="info-item">
-                        <i class="bx bx-time-five p-3"></i>
+                        <i class="fas fa-clock"></i>
                         <div>
                             <h3>{{ $quiz->waktu_menit }}</h3>
                             <p>Menit</p>
                         </div>
                     </div>
                     <div class="info-item">
-                        <i class="bx bx-file p-3"></i>
+                        <i class="fas fa-list"></i>
                         <div>
                             <h3>{{ $quiz->soals->count() }}</h3>
                             <p>Soal</p>
                         </div>
                     </div>
                     <div class="info-item">
-                        <i class="bx bx-{{ $quiz->status == 'published' ? 'check' : 'pause' }} p-4"></i>
+                        <i class="fas fa-{{ $quiz->status == 'published' ? 'check' : 'pause' }}"></i>
                         <div>
                             <span class="status-badge status-{{ $quiz->status }}">
                                 {{ ucfirst($quiz->status) }}
@@ -66,7 +65,7 @@
                         </label> <br>
                         <form action="{{ route('quiz.start', $quiz->id) }}" method="post">
                             <button id="startBtn" type="submit" class="start-btn" disabled>
-                                <i class="bx bx-play p-5"></i>
+                                <i class="fas fa-play"></i>
                                 Mulai Quiz
                             </button>
                         </form>
@@ -81,7 +80,7 @@
                 <!-- Footer -->
                 <div class="quiz-footer">
                     <a href="{{ route('dashboard') }}" class="back-link">
-                        <i class="bx bx-arrow-back p-3"></i>
+                        <i class="fas fa-arrow-left"></i>
                         Kembali
                     </a>
                 </div>

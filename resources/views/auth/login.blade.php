@@ -16,7 +16,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/backend/img/favicon/favicon.icons')}}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/backend/login/img/favicon/favicon.icons')}}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -25,31 +25,31 @@
       href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
       rel="stylesheet" />
 
-    <link rel="stylesheet" href="{{ asset('assets/backend/vendor/fonts/iconify-icons.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/backend/login/vendor/fonts/iconify-icons.css')}}" />
 
     <!-- Core CSS -->
     <!-- build:css assets/vendor/css/theme.css  -->
 
-    <link rel="stylesheet" href="{{ asset('assets/backend/vendor/css/core.css')}}" />
-    <link rel="stylesheet" href="{{ asset('assets/backend/css/demo.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/backend/login/vendor/css/core.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/backend/login/css/demo.css')}}" />
 
     <!-- Vendors CSS -->
 
-    <link rel="stylesheet" href="{{ asset('assets/backend/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/backend/login/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
 
     <!-- endbuild -->
 
     <!-- Page CSS -->
     <!-- Page -->
-    <link rel="stylesheet" href="{{ asset('assets/backend/vendor/css/pages/page-auth.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/backend/login/vendor/css/pages/page-auth.css')}}" />
 
     <!-- Helpers -->
-    <script src="{{ asset('assets/backend/vendor/js/helpers.js')}}"></script>
+    <script src="{{ asset('assets/backend/login/vendor/js/helpers.js')}}"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
 
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
 
-    <script src="{{ asset('assets/backend/js/config.js')}}"></script>
+    <script src="{{ asset('assets/backend/login/js/config.js')}}"></script>
   </head>
 
   <body>
@@ -193,14 +193,14 @@
 
     <!-- Core JS -->
 
-    <script src="{{ asset('assets/backend/vendor/libs/jquery/jquery.js')}}"></script>
+    <script src="{{ asset('assets/backend/login/vendor/libs/jquery/jquery.js')}}"></script>
 
-    <script src="{{ asset('assets/backend/vendor/libs/popper/popper.j')}}s"></script>
-    <script src="{{ asset('assets/backend/vendor/js/bootstrap.js')}}"></script>
+    <script src="{{ asset('assets/backend/login/vendor/libs/popper/popper.j')}}s"></script>
+    <script src="{{ asset('assets/backend/login/vendor/js/bootstrap.js')}}"></script>
 
-    <script src="{{ asset('assets/backend/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
+    <script src="{{ asset('assets/backend/login/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
 
-    <script src="{{ asset('assets/backend/vendor/js/menu.js')}}"></script>
+    <script src="{{ asset('assets/backend/login/vendor/js/menu.js')}}"></script>
 
     <!-- endbuild -->
 
@@ -208,7 +208,7 @@
 
     <!-- Main JS -->
 
-    <script src="{{ asset('assets/js/main.js')}}"></script>
+    <script src="{{ asset('assets/js/main/login.js')}}"></script>
 
     <!-- Page JS -->
 

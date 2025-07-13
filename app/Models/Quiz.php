@@ -14,7 +14,9 @@ class Quiz extends Model
         'kategori_id',
         'mata_pelajaran_id',
         'user_id',
+        'status_aktivasi',
         'tanggal_buat',
+        'pengulangan_pekerjaan',
         'status',
     ];
 
@@ -33,14 +35,13 @@ class Quiz extends Model
         return $this->hasMany(HasilUjian::class);
     }
 
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id');
+    }
+
     public function mataPelajaran()
     {
         return $this->belongsTo(MataPelajaran::class);
-    }
-
-    public function kategori()
-    {
-        // Fixed: should be belongsTo, not hasMany
-        return $this->belongsTo(Kategori::class, 'kategori_id');
     }
 }

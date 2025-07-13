@@ -1,7 +1,6 @@
-
 @extends('layouts.backend')
 @section('content')
-    @include('layouts.component-backend.css')
+    @include('layouts.components-backend.css')
     <div class="container-fluid">
 
         <div class="card bg-gradient-primary shadow-sm position-relative overflow-hidden mb-5 border-0">
@@ -42,7 +41,7 @@
         </div>
 
         <!-- Quiz Edit Form -->
-        <form id="quiz-edit-form" action="{{ route('backend.quiz.update', $quiz->id) }}" method="POST">
+        <form id="quiz-edit-form" action="{{ route('quiz.update', $quiz->id) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -85,10 +84,10 @@
                                         class="text-danger">*</span></label>
                                 <select class="form-select @error('categories') is-invalid @enderror" id="categories"
                                     name="categories" required>
-                                    <option value="" disabled selected>Pilih Kategori Quiz</option>
+                                    <option value="" disabled>Pilih Kategori Quiz</option>
                                     @foreach ($categories as $items)
                                         <option value="{{ $items->id }}"
-                                            {{ $items->id == $quiz->kategori_id ? 'selected' : '' }}>
+                                            {{ old('categories', $quiz->kategori_id) == $items->id ? 'selected' : '' }}>
                                             {{ $items->nama_kategori }}</option>
                                     @endforeach
                                 </select>
@@ -103,10 +102,10 @@
                                         class="text-danger">*</span></label>
                                 <select class="form-select @error('mapel') is-invalid @enderror" id="mapel"
                                     name="mapel" required>
-                                    <option value="" disabled selected>Pilih Mata Pelajaran Quiz</option>
+                                    <option value="" disabled>Pilih Mata Pelajaran Quiz</option>
                                     @foreach ($mataPelajaran as $items)
                                         <option value="{{ $items->id }}"
-                                            {{ $items->id == $quiz->mata_pelajaran_id ? 'selected' : '' }}>
+                                            {{ old('mapel', $quiz->mata_pelajaran_id) == $items->id ? 'selected' : '' }}>
                                             {{ $items->nama_mapel }}</option>
                                     @endforeach
                                 </select>
@@ -156,25 +155,28 @@
                 <div class="card-body">
                     <div id="questions-container">
                         @foreach ($quiz->soals as $index => $soal)
-                            <div class="question-item card mb-4" data-question-index="{{ $index }}">
+                            <div class="question-item card mb-4" data-question-index="{{ $index }}" data-question-type="{{ $soal->tipe }}">
                                 <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h6 class="card-title mb-0">Soal {{ $index + 1 }}</h6>
+                                    <h6 class="card-title mb-0">Soal {{ $index + 1 }} 
+                                        <span class="badge bg-{{ $soal->tipe == 'pilihan_ganda' ? 'primary' : ($soal->tipe == 'benar_salah' ? 'success' : 'warning') }}">
+                                            {{ $soal->tipe == 'pilihan_ganda' ? 'Pilihan Ganda' : ($soal->tipe == 'benar_salah' ? 'Benar/Salah' : 'Essay') }}
+                                        </span>
+                                    </h6>
                                     <button type="button" class="btn btn-outline-danger btn-sm remove-question">
                                         <i class="ti ti-trash me-1"></i>Hapus
                                     </button>
                                 </div>
                                 <div class="card-body">
                                     <!-- Hidden field for existing question ID -->
-                                    <input type="hidden" name="questions[{{ $index }}][id]"
-                                        value="{{ $soal->id }}">
+                                    <input type="hidden" name="questions[{{ $index }}][id]" value="{{ $soal->id }}">
 
                                     <div class="mb-3">
                                         <label for="question-{{ $index }}" class="form-label">Teks Soal <span
                                                 class="text-danger">*</span></label>
-                                        <textarea class="form-control @error('questions.' . $index . '.pertanyaan') is-invalid @enderror"
-                                            id="question-{{ $index }}" name="questions[{{ $index }}][pertanyaan]" rows="3" required
-                                            placeholder="Masukkan soal di sini...">{{ old('questions.' . $index . '.pertanyaan', $soal->pertanyaan) }}</textarea>
-                                        @error('questions.' . $index . '.pertanyaan')
+                                        <textarea class="form-control @error('questions.' . $index . '.text') is-invalid @enderror"
+                                            id="question-{{ $index }}" name="questions[{{ $index }}][text]" rows="3" required
+                                            placeholder="Masukkan soal di sini...">{{ old('questions.' . $index . '.text', $soal->pertanyaan) }}</textarea>
+                                        @error('questions.' . $index . '.text')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -182,112 +184,158 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="option-a-{{ $index }}" class="form-label">Pilihan A
-                                                    <span class="text-danger">*</span></label>
-                                                <input type="text"
-                                                    class="form-control @error('questions.' . $index . '.pilihan_a') is-invalid @enderror"
-                                                    id="option-a-{{ $index }}"
-                                                    name="questions[{{ $index }}][pilihan_a]"
-                                                    value="{{ old('questions.' . $index . '.pilihan_a', $soal->pilihan_a) }}"
-                                                    required placeholder="Masukkan pilihan A">
-                                                @error('questions.' . $index . '.pilihan_a')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
+                                                <label for="question-type-{{ $index }}" class="form-label">Tipe Soal <span class="text-danger">*</span></label>
+                                                <select class="form-select question-type-select" id="question-type-{{ $index }}" 
+                                                        name="questions[{{ $index }}][type]" required data-question-index="{{ $index }}">
+                                                    <option value="">Pilih Tipe Soal</option>
+                                                    <option value="pilihan_ganda" {{ $soal->tipe == 'pilihan_ganda' ? 'selected' : '' }}>Pilihan Ganda</option>
+                                                    <option value="benar_salah" {{ $soal->tipe == 'benar_salah' ? 'selected' : '' }}>Benar/Salah</option>
+                                                    <option value="essay" {{ $soal->tipe == 'essay' ? 'selected' : '' }}>Essay</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="option-b-{{ $index }}" class="form-label">Pilihan B
-                                                    <span class="text-danger">*</span></label>
-                                                <input type="text"
-                                                    class="form-control @error('questions.' . $index . '.pilihan_b') is-invalid @enderror"
-                                                    id="option-b-{{ $index }}"
-                                                    name="questions[{{ $index }}][pilihan_b]"
-                                                    value="{{ old('questions.' . $index . '.pilihan_b', $soal->pilihan_b) }}"
-                                                    required placeholder="Masukkan pilihan B">
-                                                @error('questions.' . $index . '.pilihan_b')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
+                                                <label for="weight-{{ $index }}" class="form-label">Bobot Soal</label>
+                                                <input type="number" class="form-control" id="weight-{{ $index }}" 
+                                                    name="questions[{{ $index }}][weight]" min="1" max="100" 
+                                                    value="{{ old('questions.' . $index . '.weight', $soal->bobot ?? 10) }}">
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                    <!-- Dynamic Options Container -->
+                                    <div id="question-options-{{ $index }}">
+                                        <!-- Options berdasarkan tipe soal yang sudah ada -->
+                                        @if($soal->tipe === 'pilihan_ganda')
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="option-a-{{ $index }}" class="form-label">Pilihan A <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control @error('questions.' . $index . '.option_a') is-invalid @enderror"
+                                                            id="option-a-{{ $index }}" name="questions[{{ $index }}][option_a]"
+                                                            value="{{ old('questions.' . $index . '.option_a', $soal->pilihan_a) }}"
+                                                            required placeholder="Masukkan pilihan A">
+                                                        @error('questions.' . $index . '.option_a')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="option-b-{{ $index }}" class="form-label">Pilihan B <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control @error('questions.' . $index . '.option_b') is-invalid @enderror"
+                                                            id="option-b-{{ $index }}" name="questions[{{ $index }}][option_b]"
+                                                            value="{{ old('questions.' . $index . '.option_b', $soal->pilihan_b) }}"
+                                                            required placeholder="Masukkan pilihan B">
+                                                        @error('questions.' . $index . '.option_b')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="option-c-{{ $index }}" class="form-label">Pilihan C <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control @error('questions.' . $index . '.option_c') is-invalid @enderror"
+                                                            id="option-c-{{ $index }}" name="questions[{{ $index }}][option_c]"
+                                                            value="{{ old('questions.' . $index . '.option_c', $soal->pilihan_c) }}"
+                                                            required placeholder="Masukkan pilihan C">
+                                                        @error('questions.' . $index . '.option_c')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="option-d-{{ $index }}" class="form-label">Pilihan D <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control @error('questions.' . $index . '.option_d') is-invalid @enderror"
+                                                            id="option-d-{{ $index }}" name="questions[{{ $index }}][option_d]"
+                                                            value="{{ old('questions.' . $index . '.option_d', $soal->pilihan_d) }}"
+                                                            required placeholder="Masukkan pilihan D">
+                                                        @error('questions.' . $index . '.option_d')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="mb-3">
-                                                <label for="option-c-{{ $index }}" class="form-label">Pilihan C
-                                                    <span class="text-danger">*</span></label>
-                                                <input type="text"
-                                                    class="form-control @error('questions.' . $index . '.pilihan_c') is-invalid @enderror"
-                                                    id="option-c-{{ $index }}"
-                                                    name="questions[{{ $index }}][pilihan_c]"
-                                                    value="{{ old('questions.' . $index . '.pilihan_c', $soal->pilihan_c) }}"
-                                                    required placeholder="Masukkan pilihan C">
-                                                @error('questions.' . $index . '.pilihan_c')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                <label class="form-label">Jawaban Benar <span class="text-danger">*</span></label>
+                                                <div class="d-flex gap-3">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="questions[{{ $index }}][correct_answer]"
+                                                            id="correct-a-{{ $index }}" value="A"
+                                                            {{ old('questions.' . $index . '.correct_answer', $soal->jawaban_benar) == 'A' ? 'checked' : '' }}
+                                                            required>
+                                                        <label class="form-check-label" for="correct-a-{{ $index }}">A</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="questions[{{ $index }}][correct_answer]"
+                                                            id="correct-b-{{ $index }}" value="B"
+                                                            {{ old('questions.' . $index . '.correct_answer', $soal->jawaban_benar) == 'B' ? 'checked' : '' }}
+                                                            required>
+                                                        <label class="form-check-label" for="correct-b-{{ $index }}">B</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="questions[{{ $index }}][correct_answer]"
+                                                            id="correct-c-{{ $index }}" value="C"
+                                                            {{ old('questions.' . $index . '.correct_answer', $soal->jawaban_benar) == 'C' ? 'checked' : '' }}
+                                                            required>
+                                                        <label class="form-check-label" for="correct-c-{{ $index }}">C</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="questions[{{ $index }}][correct_answer]"
+                                                            id="correct-d-{{ $index }}" value="D"
+                                                            {{ old('questions.' . $index . '.correct_answer', $soal->jawaban_benar) == 'D' ? 'checked' : '' }}
+                                                            required>
+                                                        <label class="form-check-label" for="correct-d-{{ $index }}">D</label>
+                                                    </div>
+                                                </div>
+                                                @error('questions.' . $index . '.correct_answer')
+                                                    <div class="text-danger small mt-1">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="option-d-{{ $index }}" class="form-label">Pilihan D
-                                                    <span class="text-danger">*</span></label>
-                                                <input type="text"
-                                                    class="form-control @error('questions.' . $index . '.pilihan_d') is-invalid @enderror"
-                                                    id="option-d-{{ $index }}"
-                                                    name="questions[{{ $index }}][pilihan_d]"
-                                                    value="{{ old('questions.' . $index . '.pilihan_d', $soal->pilihan_d) }}"
-                                                    required placeholder="Masukkan pilihan D">
-                                                @error('questions.' . $index . '.pilihan_d')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="mb-3">
-                                        <label class="form-label">Jawaban Benar <span class="text-danger">*</span></label>
-                                        <div class="d-flex gap-3">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="questions[{{ $index }}][jawaban_benar]"
-                                                    id="correct-a-{{ $index }}" value="A"
-                                                    {{ old('questions.' . $index . '.jawaban_benar', $soal->jawaban_benar) == 'A' ? 'checked' : '' }}
-                                                    required>
-                                                <label class="form-check-label"
-                                                    for="correct-a-{{ $index }}">A</label>
+                                        @elseif($soal->tipe === 'benar_salah')
+                                            <div class="mb-3">
+                                                <label class="form-label">Jawaban Benar <span class="text-danger">*</span></label>
+                                                <div class="d-flex gap-3">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="questions[{{ $index }}][correct_answer]"
+                                                            id="correct-benar-{{ $index }}" value="Benar"
+                                                            {{ old('questions.' . $index . '.correct_answer', $soal->jawaban_benar) == 'Benar' ? 'checked' : '' }}
+                                                            required>
+                                                        <label class="form-check-label" for="correct-benar-{{ $index }}">Benar</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="questions[{{ $index }}][correct_answer]"
+                                                            id="correct-salah-{{ $index }}" value="Salah"
+                                                            {{ old('questions.' . $index . '.correct_answer', $soal->jawaban_benar) == 'Salah' ? 'checked' : '' }}
+                                                            required>
+                                                        <label class="form-check-label" for="correct-salah-{{ $index }}">Salah</label>
+                                                    </div>
+                                                </div>
+                                                @error('questions.' . $index . '.correct_answer')
+                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                @enderror
                                             </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="questions[{{ $index }}][jawaban_benar]"
-                                                    id="correct-b-{{ $index }}" value="B"
-                                                    {{ old('questions.' . $index . '.jawaban_benar', $soal->jawaban_benar) == 'B' ? 'checked' : '' }}
-                                                    required>
-                                                <label class="form-check-label"
-                                                    for="correct-b-{{ $index }}">B</label>
+
+                                        @elseif($soal->tipe === 'essay')
+                                            <div class="mb-3">
+                                                <label for="essay-answer-{{ $index }}" class="form-label">Jawaban Model / Rubrik Penilaian <small class="text-muted">(Opsional)</small></label>
+                                                <textarea class="form-control" id="essay-answer-{{ $index }}"
+                                                    name="questions[{{ $index }}][correct_answer]" rows="4"
+                                                    placeholder="Masukkan jawaban model atau rubrik penilaian...">{{ old('questions.' . $index . '.correct_answer', $soal->jawaban_benar) }}</textarea>
+                                                <small class="text-muted">Jawaban model akan digunakan sebagai referensi untuk penilaian manual oleh guru</small>
                                             </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="questions[{{ $index }}][jawaban_benar]"
-                                                    id="correct-c-{{ $index }}" value="C"
-                                                    {{ old('questions.' . $index . '.jawaban_benar', $soal->jawaban_benar) == 'C' ? 'checked' : '' }}
-                                                    required>
-                                                <label class="form-check-label"
-                                                    for="correct-c-{{ $index }}">C</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="questions[{{ $index }}][jawaban_benar]"
-                                                    id="correct-d-{{ $index }}" value="D"
-                                                    {{ old('questions.' . $index . '.jawaban_benar', $soal->jawaban_benar) == 'D' ? 'checked' : '' }}
-                                                    required>
-                                                <label class="form-check-label"
-                                                    for="correct-d-{{ $index }}">D</label>
-                                            </div>
-                                        </div>
-                                        @error('questions.' . $index . '.jawaban_benar')
-                                            <div class="text-danger small mt-1">{{ $message }}</div>
-                                        @enderror
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -296,11 +344,11 @@
 
                     <!-- Action Buttons -->
                     <div class="d-flex justify-content-between mt-4">
-                        <a href="{{ route('backend.quiz.index') }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('quiz.index') }}" class="btn btn-outline-secondary">
                             <i class="ti ti-arrow-left me-2"></i>Kembali
                         </a>
                         <button type="submit" class="btn btn-success btn-lg">
-                            <i class="bx bxs-save me-2"></i>Simpan Perubahan
+                            <i class="ti ti-device-floppy me-2"></i>Simpan Perubahan
                         </button>
                     </div>
                 </div>
@@ -311,6 +359,15 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             let questionIndex = {{ count($quiz->soals) }};
+
+            // Add event listener for question type changes using event delegation
+            document.addEventListener('change', function(e) {
+                if (e.target.classList.contains('question-type-select')) {
+                    const questionIndex = e.target.getAttribute('data-question-index');
+                    const selectedType = e.target.value;
+                    handleQuestionTypeChange(questionIndex, selectedType);
+                }
+            });
 
             // Add new question
             document.getElementById('add-question').addEventListener('click', function() {
@@ -323,8 +380,7 @@
 
             // Remove question functionality
             document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('remove-question') || e.target.closest(
-                    '.remove-question')) {
+                if (e.target.classList.contains('remove-question') || e.target.closest('.remove-question')) {
                     const questionItem = e.target.closest('.question-item');
                     const questionsContainer = document.getElementById('questions-container');
 
@@ -337,6 +393,7 @@
                     if (confirm('Apakah Anda yakin ingin menghapus soal ini?')) {
                         questionItem.remove();
                         updateQuestionNumbers();
+                        updateQuestionIndexes();
                     }
                 }
             });
@@ -348,73 +405,191 @@
                 questionDiv.setAttribute('data-question-index', index);
 
                 questionDiv.innerHTML = `
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h6 class="card-title mb-0">Soal ${index + 1}</h6>
-                <button type="button" class="btn btn-outline-danger btn-sm remove-question">
-                    <i class="ti ti-trash me-1"></i>Hapus
-                </button>
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
-                    <label for="question-${index}" class="form-label">Teks Soal <span class="text-danger">*</span></label>
-                    <textarea class="form-control" id="question-${index}" name="questions[${index}][pertanyaan]" rows="3" required placeholder="Masukkan soal di sini..."></textarea>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="card-title mb-0">Soal ${index + 1} <span class="badge bg-secondary" id="type-badge-${index}">Pilih Tipe</span></h6>
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-question">
+                        <i class="ti ti-trash me-1"></i>Hapus
+                    </button>
                 </div>
-                
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="option-a-${index}" class="form-label">Pilihan A <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="option-a-${index}" name="questions[${index}][pilihan_a]" required placeholder="Masukkan pilihan A">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="question-${index}" class="form-label">Teks Soal <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="question-${index}" name="questions[${index}][text]" rows="3" required placeholder="Masukkan soal di sini..."></textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="question-type-${index}" class="form-label">Tipe Soal <span class="text-danger">*</span></label>
+                                <select class="form-select question-type-select" id="question-type-${index}" name="questions[${index}][type]" required data-question-index="${index}">
+                                    <option value="">Pilih Tipe Soal</option>
+                                    <option value="pilihan_ganda">Pilihan Ganda</option>
+                                    <option value="benar_salah">Benar/Salah</option>
+                                    <option value="essay">Essay</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="weight-${index}" class="form-label">Bobot Soal</label>
+                                <input type="number" class="form-control" id="weight-${index}" name="questions[${index}][weight]" min="1" max="100" value="10" placeholder="1-100">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="option-b-${index}" class="form-label">Pilihan B <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="option-b-${index}" name="questions[${index}][pilihan_b]" required placeholder="Masukkan pilihan B">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="option-c-${index}" class="form-label">Pilihan C <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="option-c-${index}" name="questions[${index}][pilihan_c]" required placeholder="Masukkan pilihan C">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="option-d-${index}" class="form-label">Pilihan D <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="option-d-${index}" name="questions[${index}][pilihan_d]" required placeholder="Masukkan pilihan D">
+                    
+                    <div id="question-options-${index}">
+                        <div class="alert alert-info">
+                            <i class="ti ti-info-circle me-2"></i>
+                            Silakan pilih tipe soal untuk menampilkan opsi jawaban
                         </div>
                     </div>
                 </div>
-                
-                <div class="mb-3">
-                    <label class="form-label">Jawaban Benar <span class="text-danger">*</span></label>
-                    <div class="d-flex gap-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="questions[${index}][jawaban_benar]" id="correct-a-${index}" value="A" required>
-                            <label class="form-check-label" for="correct-a-${index}">A</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="questions[${index}][jawaban_benar]" id="correct-b-${index}" value="B" required>
-                            <label class="form-check-label" for="correct-b-${index}">B</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="questions[${index}][jawaban_benar]" id="correct-c-${index}" value="C" required>
-                            <label class="form-check-label" for="correct-c-${index}">C</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="questions[${index}][jawaban_benar]" id="correct-d-${index}" value="D" required>
-                            <label class="form-check-label" for="correct-d-${index}">D</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
+            `;
 
                 return questionDiv;
+            }
+
+            // Handle question type change for both existing and new questions
+            function handleQuestionTypeChange(index, selectedType) {
+                const optionsContainer = document.getElementById(`question-options-${index}`);
+                const typeBadge = document.getElementById(`type-badge-${index}`);
+                const questionItem = document.querySelector(`[data-question-index="${index}"]`);
+
+                // Update badge and question type attribute
+                if (selectedType) {
+                    questionItem.setAttribute('data-question-type', selectedType);
+                    
+                    const typeNames = {
+                        'pilihan_ganda': 'Pilihan Ganda',
+                        'benar_salah': 'Benar/Salah',
+                        'essay': 'Essay'
+                    };
+                    
+                    const typeColors = {
+                        'pilihan_ganda': 'bg-primary',
+                        'benar_salah': 'bg-success',
+                        'essay': 'bg-warning'
+                    };
+                    
+                    if (typeBadge) {
+                        typeBadge.textContent = typeNames[selectedType];
+                        typeBadge.className = `badge ${typeColors[selectedType]}`;
+                    }
+                } else {
+                    if (typeBadge) {
+                        typeBadge.textContent = 'Pilih Tipe';
+                        typeBadge.className = 'badge bg-secondary';
+                    }
+                }
+
+                // Clear previous options
+                optionsContainer.innerHTML = '';
+
+                // Generate options based on type
+                switch (selectedType) {
+                    case 'pilihan_ganda':
+                        optionsContainer.innerHTML = createMultipleChoiceOptions(index);
+                        break;
+                    case 'benar_salah':
+                        optionsContainer.innerHTML = createTrueFalseOptions(index);
+                        break;
+                    case 'essay':
+                        optionsContainer.innerHTML = createEssayOptions(index);
+                        break;
+                    default:
+                        optionsContainer.innerHTML = `
+                            <div class="alert alert-info">
+                                <i class="ti ti-info-circle me-2"></i>
+                                Silakan pilih tipe soal untuk menampilkan opsi jawaban
+                            </div>
+                        `;
+                        break;
+                }
+            }
+
+            // Create multiple choice options
+            function createMultipleChoiceOptions(index) {
+                return `
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="option-a-${index}" class="form-label">Pilihan A <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="option-a-${index}" name="questions[${index}][option_a]" required placeholder="Masukkan pilihan A">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="option-b-${index}" class="form-label">Pilihan B <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="option-b-${index}" name="questions[${index}][option_b]" required placeholder="Masukkan pilihan B">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="option-c-${index}" class="form-label">Pilihan C <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="option-c-${index}" name="questions[${index}][option_c]" required placeholder="Masukkan pilihan C">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="option-d-${index}" class="form-label">Pilihan D <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="option-d-${index}" name="questions[${index}][option_d]" required placeholder="Masukkan pilihan D">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Jawaban Benar <span class="text-danger">*</span></label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="questions[${index}][correct_answer]" id="correct-a-${index}" value="A" required>
+                                <label class="form-check-label" for="correct-a-${index}">A</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="questions[${index}][correct_answer]" id="correct-b-${index}" value="B" required>
+                                <label class="form-check-label" for="correct-b-${index}">B</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="questions[${index}][correct_answer]" id="correct-c-${index}" value="C" required>
+                                <label class="form-check-label" for="correct-c-${index}">C</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="questions[${index}][correct_answer]" id="correct-d-${index}" value="D" required>
+                                <label class="form-check-label" for="correct-d-${index}">D</label>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Create true/false options
+            function createTrueFalseOptions(index) {
+                return `
+                    <div class="mb-3">
+                        <label class="form-label">Jawaban Benar <span class="text-danger">*</span></label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="questions[${index}][correct_answer]" id="correct-benar-${index}" value="Benar" required>
+                                <label class="form-check-label" for="correct-benar-${index}">Benar</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="questions[${index}][correct_answer]" id="correct-salah-${index}" value="Salah" required>
+                                <label class="form-check-label" for="correct-salah-${index}">Salah</label>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Create essay options
+            function createEssayOptions(index) {
+                return `
+                    <div class="mb-3">
+                        <label for="essay-answer-${index}" class="form-label">Jawaban Model / Rubrik Penilaian <small class="text-muted">(Opsional)</small></label>
+                        <textarea class="form-control" id="essay-answer-${index}" name="questions[${index}][correct_answer]" rows="4" placeholder="Masukkan jawaban model atau rubrik penilaian..."></textarea>
+                        <small class="text-muted">Jawaban model akan digunakan sebagai referensi untuk penilaian manual oleh guru</small>
+                    </div>
+                `;
             }
 
             // Update question numbers after add/remove
@@ -422,17 +597,51 @@
                 const questionItems = document.querySelectorAll('.question-item');
                 questionItems.forEach((item, index) => {
                     const titleElement = item.querySelector('.card-title');
-                    titleElement.textContent = `Soal ${index + 1}`;
+                    const badgeElement = titleElement.querySelector('.badge');
+                    const badgeText = badgeElement ? badgeElement.textContent : 'Pilih Tipe';
+                    const badgeClass = badgeElement ? badgeElement.className : 'badge bg-secondary';
+                    titleElement.innerHTML = `Soal ${index + 1} <span class="${badgeClass}" id="type-badge-${index}">${badgeText}</span>`;
                     item.setAttribute('data-question-index', index);
                 });
             }
 
-            // Form validation before submission
-            document.getElementById('quiz-edit-form').addEventListener('submit', function(e) {
-                const questions = document.querySelectorAll('[name*="[pertanyaan]"]');
-                const options = document.querySelectorAll('[name*="[pilihan_"]');
-                const correctAnswers = document.querySelectorAll('[name*="[jawaban_benar]"]:checked');
+            // Update question name attributes to maintain proper indexing
+            function updateQuestionIndexes() {
+                const questionItems = document.querySelectorAll('.question-item');
+                questionItems.forEach((item, index) => {
+                    // Update all input names and ids for consistency
+                    const inputs = item.querySelectorAll('input, textarea, select');
+                    inputs.forEach(input => {
+                        if (input.name) {
+                            input.name = input.name.replace(/questions\[\d+\]/, `questions[${index}]`);
+                        }
+                        if (input.id) {
+                            input.id = input.id.replace(/-\d+$/, `-${index}`);
+                        }
+                        if (input.hasAttribute('data-question-index')) {
+                            input.setAttribute('data-question-index', index);
+                        }
+                    });
 
+                    // Update labels for attributes
+                    const labels = item.querySelectorAll('label');
+                    labels.forEach(label => {
+                        if (label.getAttribute('for')) {
+                            label.setAttribute('for', label.getAttribute('for').replace(/-\d+$/, `-${index}`));
+                        }
+                    });
+
+                    // Update the options container id
+                    const optionsContainer = item.querySelector('[id^="question-options-"]');
+                    if (optionsContainer) {
+                        optionsContainer.id = `question-options-${index}`;
+                    }
+                });
+            }
+
+            // Form validation before submission - Support untuk semua tipe soal
+            document.getElementById('quiz-edit-form').addEventListener('submit', function(e) {
+                const questions = document.querySelectorAll('[name*="[text]"]');
                 let isValid = true;
                 let errorMessage = '';
 
@@ -442,7 +651,7 @@
                     errorMessage = 'Quiz harus memiliki minimal satu soal.';
                 }
 
-                // Check if all questions have text
+                // Check if all questions have text and type
                 if (isValid) {
                     questions.forEach((question, index) => {
                         if (!question.value.trim()) {
@@ -450,27 +659,50 @@
                             errorMessage = `Harap isi teks untuk Soal ${index + 1}.`;
                             return;
                         }
-                    });
-                }
 
-                // Check if all options are filled
-                if (isValid) {
-                    options.forEach((option, index) => {
-                        if (!option.value.trim()) {
+                        // Get question type from the select element
+                        const typeSelect = document.querySelector(`[name="questions[${index}][type]"]`);
+                        const questionType = typeSelect ? typeSelect.value : '';
+
+                        // Check if question type is selected
+                        if (!questionType) {
                             isValid = false;
-                            const questionNum = Math.floor(index / 4) + 1;
-                            const optionLetter = String.fromCharCode(65 + (index % 4));
-                            errorMessage =
-                                `Harap isi Pilihan ${optionLetter} untuk Soal ${questionNum}.`;
+                            errorMessage = `Harap pilih tipe soal untuk Soal ${index + 1}.`;
                             return;
                         }
-                    });
-                }
 
-                // Check if all questions have correct answers selected
-                if (isValid && correctAnswers.length !== questions.length) {
-                    isValid = false;
-                    errorMessage = 'Harap pilih jawaban benar untuk semua soal.';
+                        // Validate based on question type
+                        if (questionType === 'pilihan_ganda') {
+                            // Check if all options are filled
+                            const options = ['option_a', 'option_b', 'option_c', 'option_d'];
+                            for (let opt of options) {
+                                const optionInput = document.querySelector(`[name="questions[${index}][${opt}]"]`);
+                                if (!optionInput || !optionInput.value.trim()) {
+                                    isValid = false;
+                                    const optionLetter = opt.slice(-1).toUpperCase();
+                                    errorMessage = `Harap isi Pilihan ${optionLetter} untuk Soal ${index + 1}.`;
+                                    return;
+                                }
+                            }
+
+                            // Check if correct answer is selected
+                            const correctAnswer = document.querySelector(`[name="questions[${index}][correct_answer]"]:checked`);
+                            if (!correctAnswer) {
+                                isValid = false;
+                                errorMessage = `Harap pilih jawaban benar untuk Soal ${index + 1}.`;
+                                return;
+                            }
+                        } else if (questionType === 'benar_salah') {
+                            // Check if correct answer is selected
+                            const correctAnswer = document.querySelector(`[name="questions[${index}][correct_answer]"]:checked`);
+                            if (!correctAnswer) {
+                                isValid = false;
+                                errorMessage = `Harap pilih jawaban benar untuk Soal ${index + 1}.`;
+                                return;
+                            }
+                        }
+                        // Essay questions don't need additional validation as answer is optional
+                    });
                 }
 
                 if (!isValid) {
@@ -564,6 +796,29 @@
 
         .question-item:hover {
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+
+        .badge {
+            font-size: 0.75rem;
+        }
+
+        /* Question type specific styling */
+        .question-item[data-question-type="pilihan_ganda"] {
+            border-left: 4px solid #0d6efd;
+        }
+
+        .question-item[data-question-type="benar_salah"] {
+            border-left: 4px solid #198754;
+        }
+
+        .question-item[data-question-type="essay"] {
+            border-left: 4px solid #ffc107;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            border-color: #b8daff;
+            color: #0c5460;
         }
     </style>
 @endsection

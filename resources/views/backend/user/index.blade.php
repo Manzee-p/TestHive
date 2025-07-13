@@ -1,34 +1,36 @@
+
 @extends('layouts.backend')
 @section('content')
-<div class="content-wrapper">
-  <!-- Content -->
-  <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="row">
-      <div class="col-xxl-8 mb-6 order-0">
-        <div class="card">
-          <div class="d-flex align-items-start row">
-            <div class="col-sm-7">
-              <div class="card-body">
-                <h5 class="card-title text-primary mb-3">Congratulations John! 🎉</h5>
-                <p class="mb-6">
-                  You have done 72% more sales today.<br/>Check your new badge in your profile.
-                </p>
-
-                <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
-              </div>
+<div class="container-fluid">
+    <!-- Enhanced Header Section -->
+    <div class="card bg-gradient-primary shadow-sm position-relative overflow-hidden mb-5">
+        <div class="card-body px-4 py-4">
+            <div class="row align-items-center">
+                <div class="col-9">
+                    <h3 class="fw-bold mb-3 text-white">Semua User Anda!!</h3>
+                    <p class="text-white-75 mb-3">Kelola dan pantau semua user Anda dengan mudah</p>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-light">
+                            <li class="breadcrumb-item">
+                                <a class="text-white-75 text-decoration-none" href="">
+                                    <i class="ti ti-home me-1"></i>Kelola
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item active text-white" aria-current="page">User</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-3">
+                    <div class="text-center">
+                        <img src="{{asset('assets/backend/images/breadcrumb/ChatBc.png')}}" 
+                             alt="user-dashboard" 
+                             class="img-fluid" 
+                             style="max-height: 120px; filter: brightness(1.1);" />
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-5 text-center text-sm-left">
-              <div class="card-body pb-0 px-0 px-md-6">
-                <img
-                  src="{{asset ('assets/backend/img/illustrations/man-with-laptop.png') }}"
-                  height="175"
-                  alt="View Badge User" />
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-      <!-- Decorative elements -->
+        <!-- Decorative elements -->
         <div class="position-absolute top-0 end-0 opacity-25">
             <div class="bg-white rounded-circle" style="width: 200px; height: 200px; transform: translate(50px, -50px);"></div>
         </div>
@@ -44,7 +46,7 @@
                     <div class="d-flex align-items-center">
                         <div class="me-3">
                             <div class="rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                <i class="bx bx-user p-3 text-primary"></i>
+                                <i class="ti ti-users text-primary"></i>
                             </div>
                         </div>
                         <div>
@@ -60,8 +62,8 @@
                     </div>
                 </div>
                 <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                    <a href="{{ route('backend.users.create') }}" class="btn btn-primary btn-lg px-4">
-                        <i class="bx bx-plus p-3 me-2"></i>Buat User Baru
+                    <a href="{{ route('users.create') }}" class="btn btn-primary btn-lg px-4">
+                        <i class="ti ti-plus me-2"></i>Buat User Baru
                     </a>
                 </div>
             </div>
@@ -73,7 +75,7 @@
         <div class="card-header bg-transparent border-bottom py-3">
             <div class="d-flex align-items-center justify-content-between">
                 <h5 class="mb-0 fw-bold">
-                    <i class="bx bx-table me-2 text-primary"></i>Tabel User
+                    <i class="ti ti-table me-2 text-primary"></i>Tabel User
                 </h5>
                 <span class="badge bg-primary-subtle text-primary px-3 py-2">
                     {{ $users->count() }} User
@@ -108,27 +110,29 @@
                             <td class="py-4">
                                 <span class="badge {{ $user->isAdmin ? 'bg-success-subtle text-success' : 'bg-primary-subtle text-primary' }}">
                                     {{ $user->isAdmin ? 'Admin' : 'User' }}
-                                </span>  
+                                </span>
                             </td>
                             <td class="py-4">
-                                <small class="text-muted"><i class="bx bx-calendar me-1"></i>{{ $user->created_at->format('d M Y, H:i') }}</small>
+                                <small class="text-muted"><i class="ti ti-calendar me-1"></i>{{ $user->created_at->format('d M Y, H:i') }}</small>
                             </td>
+                            @if ($user->email !== 'admin@gmail.com')
                             <td class="py-4 text-center pe-4">
                                 <div class="btn-group" role="group">
-                                    <a href="{{ route('backend.users.edit', $user->id) }}" class="btn btn-warning btn-sm" title="Edit User">
-                                        <i class="bx bxs-edit"></i>
+                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm" title="Edit User">
+                                        <i class="ti ti-edit"></i>
                                     </a>
                                     <button type="button" class="btn btn-danger btn-sm" title="Hapus User"
                                         onclick="if(confirm('Yakin ingin menghapus user {{ $user->name }}?')) { document.getElementById('delete-form-{{ $user->id }}').submit(); }">
-                                        <i class="bx bxs-trash"></i>
+                                        <i class="ti ti-trash"></i>
                                     </button>
                                 </div>
 
-                                <form id="delete-form-{{ $user->id }}" action="{{ route('backend.users.destroy', $user->id) }}" method="POST" style="display: none;">
+                                <form id="delete-form-{{ $user->id }}" action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
                             </td>
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>
@@ -139,15 +143,15 @@
         <div class="card-body text-center py-5">
             <div class="mb-4">
                 <div class="rounded-circle bg-primary-subtle d-inline-flex align-items-center justify-content-center mb-3" style="width: 100px; height: 100px;">
-                    <i class="bx bx-user text-primary" style="font-size: 48px;"></i>
+                    <i class="ti ti-users text-primary" style="font-size: 48px;"></i>
                 </div>
             </div>
             <h3 class="fw-bold text-dark mb-3">Belum Ada User</h3>
             <p class="text-muted mb-4 mx-auto" style="max-width: 400px;">
                 Mulai dengan membuat user pertama untuk mengelola sistem Anda dengan lebih baik!
             </p>
-            <a href="{{ backend.users.create }}" class="btn btn-primary btn-lg px-5">
-                <i class="bx bx-plus me-2"></i>Buat User Pertama
+            <a href="{{ route('users.create') }}" class="btn btn-primary btn-lg px-5">
+                <i class="ti ti-plus me-2"></i>Buat User Pertama
             </a>
         </div>
         @endif
@@ -158,7 +162,7 @@
     <div class="position-fixed top-0 end-0 p-4" style="z-index: 1050;">
         <div class="toast show border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header bg-success text-white border-0">
-                <i class="bx bx-check-circle me-2"></i>
+                <i class="ti ti-check-circle me-2"></i>
                 <strong class="me-auto">Sukses</strong>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
             </div>
@@ -171,7 +175,7 @@
     <div class="position-fixed top-0 end-0 p-4" style="z-index: 1050;">
         <div class="toast show border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header bg-danger text-white border-0">
-                <i class="bx bx-alert-circle me-2"></i>
+                <i class="ti ti-alert-circle me-2"></i>
                 <strong class="me-auto">Gagal</strong>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
             </div>
@@ -179,15 +183,6 @@
         </div>
     </div>
 @endif
-    </div>
-  </div>
-  <!-- / Content -->
-
-  <!-- Footer -->
-  <!-- / Footer -->
-
-  <div class="content-backdrop fade"></div>
-</div>
 
 
 <style>

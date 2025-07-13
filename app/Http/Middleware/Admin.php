@@ -2,10 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Support\Facades\Auth;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Auth;
 
 class Admin
 {
@@ -16,10 +16,10 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->isAdmin == 1) {
+        if (Auth::user()->isAdmin == '1' || Auth::user()->isAdmin == '2' ) {
             return $next($request);
         } else {
-            return abort(403, 'akses di tolak');
+            return abort(403);
         }
     }
 }

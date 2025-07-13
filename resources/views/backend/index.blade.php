@@ -1,26 +1,29 @@
 @extends('layouts.backend')
 @section('content')
+    @include('layouts.components-backend.css')
     <div class="container-fluid">
         <!-- Enhanced Header Section -->
         <div class="card bg-gradient-primary shadow-sm position-relative overflow-hidden mb-5">
-            <div class="card gx-3">
-                <div class="d-flex align-items-start row">
-                    <div class="col-sm-7">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary mb-3">Congratulations John! 🎉</h5>
-                        <p class="mb-6">
-                        You have done 72% more sales today.<br />Check your new badge in your profile.
-                        </p>
-                        <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
-                    </div>  
+            <div class="card-body px-4 py-4">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                        <h3 class="fw-bold mb-3 text-white">Quiz Terbaru!!</h3>
+                        <p class="text-white-75 mb-3">Quiz terbaru dalam 7 Hari terakhir.</p>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb breadcrumb-light">
+                                <li class="breadcrumb-item">
+                                    <a class="text-white text-decoration-none" href="">
+                                        <i class="ti ti-home me-1"></i>Dasbor
+                                    </a>
+                                </li>
+                            </ol>
+                        </nav>
                     </div>
-                    <div class="col-sm-5 text-center text-sm-left">
-                    <div class="card-body pb-0 px-0 px-md-6">
-                        <img
-                        src="{{asset ('assets/backend/img/illustrations/man-with-laptop.png') }}"
-                        height="175"
-                        alt="View Badge User"/>
-                    </div>
+                    <div class="col-3">
+                        <div class="text-center">
+                            <img src="{{ asset('assets/backend/images/breadcrumb/ChatBc.png') }}" alt="quiz-dashboard"
+                                class="img-fluid" style="max-height: 120px; filter: brightness(1.1);" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -34,6 +37,7 @@
                     style="width: 150px; height: 150px; transform: translate(-75px, 75px);"></div>
             </div>
         </div>
+        
         <!-- Enhanced Stats Cards -->
         <div class="row">
             <div class="col-lg-3 col-md-6 mb-4">
@@ -41,7 +45,7 @@
                     <div class="card-body text-center py-4">
                         <div class="rounded-circle bg-primary-subtle d-inline-flex align-items-center justify-content-center mb-3"
                             style="width: 60px; height: 60px;">
-                            <i class="bx bx-file text-primary" style="font-size: 24px;"></i>
+                            <i class="ti ti-file-text text-primary" style="font-size: 24px;"></i>
                         </div>
                         <h4 class="fw-bold text-primary mb-1">{{ $quizzes->count() }}</h4>
                         <p class="text-muted mb-0">Total Quiz</p>
@@ -53,9 +57,12 @@
                     <div class="card-body text-center py-4">
                         <div class="rounded-circle bg-success-subtle d-inline-flex align-items-center justify-content-center mb-3"
                             style="width: 60px; height: 60px;">
-                            <i class="bx bx-check text-success" style="font-size: 35px;"></i>
+                            <i class="ti ti-check text-success" style="font-size: 24px;"></i>
                         </div>
-                        <h4 class="fw-bold text-success mb-1">{{ $quizzes->count() }}</h4>
+                        @php
+                            $quizAktif = $quizzes->where('status_aktivasi', 'aktif')->count();
+                        @endphp
+                        <h4 class="fw-bold text-success mb-1">{{ $quizAktif }}</h4>
                         <p class="text-muted mb-0">Quiz Aktif</p>
                     </div>
                 </div>
@@ -65,10 +72,15 @@
                     <div class="card-body text-center py-4">
                         <div class="rounded-circle bg-info-subtle d-inline-flex align-items-center justify-content-center mb-3"
                             style="width: 60px; height: 60px;">
-                            <i class="bx bx-user text-info" style="font-size: 30px;"></i>
+                            <i class="ti ti-users text-info" style="font-size: 24px;"></i>
                         </div>
-                        <h4 class="fw-bold text-info mb-1"></h4>
-                        <p class="text-muted mb-0">Peserta</p>
+                        @php
+                            $totalPeserta = $quizzes->sum(function($quiz) {
+                                return $quiz->hasilUjian->count();
+                            });
+                        @endphp
+                        <h4 class="fw-bold text-info mb-1">{{ $totalPeserta }}</h4>
+                        <p class="text-muted mb-0">Total Peserta</p>
                     </div>
                 </div>
             </div>
@@ -77,14 +89,15 @@
                     <div class="card-body text-center py-4">
                         <div class="rounded-circle bg-warning-subtle d-inline-flex align-items-center justify-content-center mb-3"
                             style="width: 60px; height: 60px;">
-                            <i class="bx bxs-time-five text-warning" style="font-size: 24px;"></i>
+                            <i class="ti ti-clock text-warning" style="font-size: 24px;"></i>
                         </div>
                         <h4 class="fw-bold text-warning mb-1">{{ $quizzes->sum('waktu_menit') }}</h4>
-                        <p class="text-muted mb-0">Total Durasi</p>
+                        <p class="text-muted mb-0">Total Durasi (Menit)</p>
                     </div>
                 </div>
             </div>
         </div>
+        
         <!-- Filter Section -->
         <div class="card mb-4">
             <div class="card-body">
@@ -94,7 +107,7 @@
                         <small class="text-muted">Menampilkan quiz yang dibuat dalam 7 hari terakhir</small>
                     </div>
                     <div class="col-md-4 text-end">
-                        <a href="{{ route('backend.quiz.create') }}" class="btn btn-primary">
+                        <a href="{{ route('quiz.create') }}" class="btn btn-primary">
                             <i class="ti ti-plus me-2"></i>Buat Quiz Baru
                         </a>
                     </div>
@@ -112,6 +125,14 @@
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                     <div class="card quiz-card h-100 position-relative" data-aos="fade-up"
                         data-aos-delay="{{ $index * 100 }}">
+                        
+                        <!-- Status Badge -->
+                        <div class="position-absolute top-0 end-0 mt-3 me-3">
+                            <span class="badge {{ $quiz->status_aktivasi === 'aktif' ? 'bg-success' : 'bg-secondary' }}">
+                                {{ ucfirst($quiz->status_aktivasi) }}
+                            </span>
+                        </div>
+                        
                         <div class="card-body pb-0">
                             <!-- Quiz Title -->
                             <h5 class="card-title fw-bold mb-2" title="{{ $quiz->judul_quiz }}">
@@ -122,6 +143,24 @@
                             <p class="card-text text-muted small mb-3">
                                 {{ $quiz->deskripsi ? Str::limit($quiz->deskripsi, 80) : 'Tidak ada deskripsi' }}
                             </p>
+
+                            <!-- Quiz Meta Info -->
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <small class="text-muted">
+                                            <i class="ti ti-category me-1"></i>
+                                            {{ $quiz->kategori->nama_kategori ?? 'Tanpa Kategori' }}
+                                        </small>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted">
+                                            <i class="ti ti-book me-1"></i>
+                                            {{ $quiz->mataPelajaran->nama_mapel ?? 'Tanpa Mapel' }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
 
                             <!-- Quiz Code -->
                             @if ($quiz->kode_quiz)
@@ -141,25 +180,31 @@
 
                             <!-- Quiz Stats -->
                             <div class="row text-center mb-3">
-                                <div class="col-4">
+                                <div class="col-3">
                                     <div class="stats-item">
                                         <i class="ti ti-file-text text-primary d-block mb-1"></i>
                                         <span class="fw-bold d-block">{{ $quiz->soals->count() }}</span>
                                         <small class="text-muted">Soal</small>
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-3">
                                     <div class="stats-item">
                                         <i class="ti ti-clock text-warning d-block mb-1"></i>
                                         <span class="fw-bold d-block">{{ $quiz->waktu_menit }}</span>
                                         <small class="text-muted">Menit</small>
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-3">
                                     <div class="stats-item">
-                                        <i class="ti ti-calendar text-info d-block mb-1"></i>
-                                        <span
-                                            class="fw-bold d-block">{{ \Carbon\Carbon::parse($quiz->tanggal_buat)->format('d/m') }}</span>
+                                        <i class="ti ti-users text-info d-block mb-1"></i>
+                                        <span class="fw-bold d-block">{{ $quiz->hasilUjian->count() }}</span>
+                                        <small class="text-muted">Peserta</small>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="stats-item">
+                                        <i class="ti ti-calendar text-success d-block mb-1"></i>
+                                        <span class="fw-bold d-block">{{ \Carbon\Carbon::parse($quiz->tanggal_buat)->format('d/m') }}</span>
                                         <small class="text-muted">Dibuat</small>
                                     </div>
                                 </div>
@@ -172,23 +217,61 @@
                                     Dibuat {{ \Carbon\Carbon::parse($quiz->tanggal_buat)->diffForHumans() }}
                                 </small>
                             </div>
+
+                            <!-- Quiz Settings Info -->
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <small class="text-muted">
+                                            <i class="ti ti-eye me-1"></i>
+                                            {{ ucfirst($quiz->status) }}
+                                        </small>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted">
+                                            <i class="ti ti-refresh me-1"></i>
+                                            {{ $quiz->pengulangan_pekerjaan }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Action Buttons -->
                         <div class="card-footer bg-transparent border-0 pt-0">
                             <div class="row g-2">
                                 <div class="col-6">
-                                    <a href="{{ route('backend.quiz.show', $quiz->id) }}"
+                                    <a href="{{ route('quiz.show', $quiz->id) }}"
                                         class="btn btn-primary w-100 btn-action">
-                                        <i class="ti ti-play me-1"></i>Detail Quiz
+                                        <i class="ti ti-eye me-1"></i>Detail
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <a href="{{ route('backend.quiz.edit', $quiz->id) }}"
+                                    <a href="{{ route('quiz.edit', $quiz->id) }}"
                                         class="btn btn-outline-secondary w-100 btn-action">
                                         <i class="ti ti-edit me-1"></i>Edit
                                     </a>
                                 </div>
+                            </div>
+                            
+                            <!-- Additional Actions -->
+                            <div class="mt-2">
+                                @if($quiz->status_aktivasi === 'aktif' && $quiz->soals->count() > 0)
+                                    <small class="text-success">
+                                        <i class="ti ti-check-circle me-1"></i>
+                                        Quiz siap digunakan
+                                    </small>
+                                @elseif($quiz->soals->count() === 0)
+                                    <small class="text-warning">
+                                        <i class="ti ti-alert-triangle me-1"></i>
+                                        Belum ada soal
+                                    </small>
+                                @else
+                                    <small class="text-muted">
+                                        <i class="ti ti-clock me-1"></i>
+                                        Quiz nonaktif
+                                    </small>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -205,7 +288,7 @@
                             <p class="text-muted mb-4">
                                 Belum ada quiz yang dibuat dalam 7 hari terakhir. Mulai dengan membuat quiz baru!
                             </p>
-                            <a href="{{ route('backend.quiz.create') }}" class="btn btn-primary btn-lg">
+                            <a href="{{ route('quiz.create') }}" class="btn btn-primary btn-lg">
                                 <i class="ti ti-plus me-2"></i>Buat Quiz Pertama
                             </a>
                         </div>
@@ -217,10 +300,9 @@
         <!-- Show All Quizzes Button -->
         @if ($recentQuizzes->count() > 0 && $quizzes->count() > $recentQuizzes->count())
             <div class="text-center mt-4">
-                <button class="btn btn-outline-primary" id="showAllQuizzes">
-                    <i class="ti ti-eye me-2"></i>Lihat Semua Quiz ({{ $quizzes->count() - $recentQuizzes->count() }}
-                    lainnya)
-                </button>
+                <a href="{{ route('quiz.index') }}" class="btn btn-outline-primary btn-lg">
+                    <i class="ti ti-eye me-2"></i>Lihat Semua Quiz ({{ $quizzes->count() - $recentQuizzes->count() }} lainnya)
+                </a>
             </div>
         @endif
     </div>
@@ -262,37 +344,14 @@
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
         }
 
-        .delete-btn {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(220, 53, 69, 0.3);
+        .stats-card {
             transition: all 0.3s ease;
-        }
-
-        .delete-btn:hover {
-            background: #dc3545;
-            color: white;
-            transform: scale(1.1);
-        }
-
-        .new-badge {
             border-radius: 15px;
-            font-size: 0.75rem;
-            padding: 5px 10px;
-            box-shadow: 0 2px 10px rgba(19, 222, 185, 0.3);
-            animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         .copy-btn {
@@ -362,6 +421,14 @@
             .btn-action {
                 font-size: 0.875rem;
                 padding: 8px 12px;
+            }
+
+            .col-3 .stats-item {
+                padding: 8px 2px;
+            }
+
+            .col-3 .stats-item small {
+                font-size: 0.7rem;
             }
         }
     </style>
@@ -436,8 +503,7 @@
                     const quizCode = this.getAttribute('data-quiz-code');
 
                     if (copyToClipboard(quizCode)) {
-                        showToast(`Kode quiz <strong>${quizCode}</strong> berhasil disalin!`,
-                            'success');
+                        showToast(`Kode quiz <strong>${quizCode}</strong> berhasil disalin!`, 'success');
 
                         // Visual feedback
                         const originalHTML = this.innerHTML;
@@ -455,15 +521,6 @@
                     }
                 });
             });
-
-            // Show all quizzes functionality
-            const showAllBtn = document.getElementById('showAllQuizzes');
-            if (showAllBtn) {
-                showAllBtn.addEventListener('click', function() {
-                    // This could redirect to a full quiz list page or load more via AJAX
-                    window.location.href = '{{ route('backend.quiz.index') }}?show_all=true';
-                });
-            }
         });
     </script>
 @endsection

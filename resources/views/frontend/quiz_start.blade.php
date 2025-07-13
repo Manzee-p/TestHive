@@ -121,6 +121,10 @@
                                         '3' => $soal->pilihan_d,
                                         '4' => $soal->pilihan_e,
                                         '5' => $soal->pilihan_f,
+                                        '6' => $soal->pilihan_g,
+                                        '7' => $soal->pilihan_h,
+                                        '8' => $soal->pilihan_i,
+                                        '9' => $soal->pilihan_j,
                                     ];
                                 @endphp
                                 <div class="mb-3">
@@ -277,7 +281,7 @@
     document.getElementById('start_time_input').value = Math.floor(startTime / 1000);
     
     document.addEventListener('DOMContentLoaded', function() {
-        const userId = {{ Auth::id() }};
+        const userId = {{ auth()->user()->id }};
         const quizId = {{ $quiz->id }};
         const storageKey = `quiz_${quizId}_user_${userId}_progress`;
         const startTimeKey = `quiz_${quizId}_user_${userId}_start_time`;

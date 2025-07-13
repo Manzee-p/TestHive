@@ -7,12 +7,12 @@
                 <div class="row align-items-center">
                     <div class="col-9">
                         <h3 class="fw-bold mb-3 text-white">Semua Quiz Anda!!</h3>
-                        <p class="text-white-75 mb-3">Kelola dan pantau semua quiz dengan berbagai tipe soal: Pilihan Ganda, Essay, dan Benar/Salah</p>
+                        <p class="text-white-75 mb-3">Kelola dan pantau semua quiz Anda dengan mudah</p>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb breadcrumb-light">
                                 <li class="breadcrumb-item">
                                     <a class="text-white-75 text-decoration-none" href="">
-                                        <i class="ti ti-home me-1"></i>Front Pages
+                                        <i class="ti ti-home me-1"></i>Kelola
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item active text-white" aria-current="page">Quiz</li>
@@ -21,7 +21,7 @@
                     </div>
                     <div class="col-3">
                         <div class="text-center">
-                            <img src="{{asset ('assets/backend/img/illustrations/man-with-laptop.png') }}" alt="quiz-dashboard"
+                            <img src="{{ asset('assets/backend/images/breadcrumb/ChatBc.png') }}" alt="quiz-dashboard"
                                 class="img-fluid" style="max-height: 120px; filter: brightness(1.1);" />
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                             <div class="me-3">
                                 <div class="rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center"
                                     style="width: 40px; height: 40px;">
-                                    <i class="bx bx-list-ol p-3 text-primary"></i>
+                                    <i class="ti ti-list text-primary"></i>
                                 </div>
                             </div>
                             <div>
@@ -63,8 +63,8 @@
                         </div>
                     </div>
                     <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                        <a href="{{ route('backend.quiz.create') }}" class="btn btn-primary btn-lg px-4">
-                            <i class='bx bx-plus me-2'></i>Buat Quiz Baru
+                        <a href="{{ route('quiz.create') }}" class="btn btn-primary btn-lg px-4">
+                            <i class="ti ti-plus me-2"></i>Buat Quiz Baru
                         </a>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
             <div class="card-header bg-transparent border-bottom py-3">
                 <div class="d-flex align-items-center justify-content-between">
                     <h5 class="mb-0 fw-bold">
-                        <i class="bx bx-table me-2 text-primary"></i>Tabel Quiz
+                        <i class="ti ti-table me-2 text-primary"></i>Tabel Quiz
                     </h5>
                     <div class="d-flex align-items-center">
                         <span class="badge bg-primary-subtle text-primary px-3 py-2">
@@ -93,34 +93,34 @@
                             <thead class="table-light">
                                 <tr>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3">
-                                        <i class="bx bx-file me-1 p-2"></i>Judul
+                                        <i class="ti ti-file-text me-1"></i>Judul
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3 text-center">
-                                        <i class="bx bxs-key me-1 p-2"></i>Kode Quiz
+                                        <i class="ti ti-key me-1"></i>Kode Quiz
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3 text-center">
-                                        <i class="bx bx-calendar me-1 p-2"></i>Tanggal
+                                        <i class="ti ti-calendar me-1"></i>Tanggal
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3 text-center">
-                                        <i class="bx bx-list-ol me-1 p-2"></i>Soal
+                                        <i class="ti ti-list-numbers me-1"></i>Jumlah
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3 text-center">
-                                        <i class="bx bx-category me-1 p-2"></i>Tipe Soal
+                                        <i class="ti ti-clock me-1"></i>Durasi
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3 text-center">
-                                        <i class="bx bx-time-five me-1 p-2"></i>Durasi
+                                        <i class="ti ti-users me-1"></i>Peserta
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3 text-center">
-                                        <i class="bx bx-user me-1 p-2"></i>Peserta
+                                        <i class="ti ti-check-circle me-1"></i>Mapel
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3 text-center">
-                                        <i class="bx bx-check-circle me-1 p-2"></i>Mapel
+                                        <i class="ti ti-check-circle me-1"></i>Status
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3 text-center">
-                                        <i class="bx bx-check-circle me-1 p-2"></i>Status
+                                        <i class="ti ti-check-circle me-1"></i>Aktivasi
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3 text-center pe-4">
-                                        <i class="bx bx-cog me-1"></i>Aksi
+                                        <i class="ti ti-settings me-1"></i>Aksi
                                     </th>
                                 </tr>
                             </thead>
@@ -143,7 +143,7 @@
                                                     @endif
                                                     <div class="mt-1">
                                                         <small class="text-muted">
-                                                            <i class="bx bx-user me-1 p-2"></i>{{ $quiz->user->name }}
+                                                            <i class="ti ti-user me-1"></i>{{ $quiz->user->name }}
                                                         </small>
                                                     </div>
                                                 </div>
@@ -153,12 +153,12 @@
                                             @if ($quiz->kode_quiz)
                                                 <div class="d-flex align-items-center justify-content-center">
                                                     <span class="badge bg-primary-subtle text-primary px-3 py-2 me-2">
-                                                        <i class="bx bxs-key me-1 p-2"></i>{{ $quiz->kode_quiz }}
+                                                        <i class="ti ti-key me-1"></i>{{ $quiz->kode_quiz }}
                                                     </span>
                                                     <button class="btn btn-sm btn-outline-secondary copy-quiz-btn"
                                                         data-quiz-code="{{ $quiz->kode_quiz }}" title="Salin Kode Quiz"
                                                         type="button">
-                                                        <i class="bx bx-copy text-primary p-2"></i>
+                                                        <i class="ti ti-copy"></i>
                                                     </button>
                                                 </div>
                                             @else
@@ -177,48 +177,16 @@
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <div class="rounded-circle bg-info-subtle d-flex align-items-center justify-content-center me-2"
                                                     style="width: 30px; height: 30px;">
-                                                    <i class="bx bx-list-ol text-info" style="font-size: 14px;"></i>
+                                                    <i class="ti ti-list-numbers text-info" style="font-size: 14px;"></i>
                                                 </div>
                                                 <span class="fw-bold text-info">{{ $quiz->soals->count() }}</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-4 text-center">
-                                            <div class="d-flex flex-column align-items-center gap-1">
-                                                @php
-                                                    $questionTypes = $quiz->soals->groupBy('tipe');
-                                                    $multipleChoice = $questionTypes->get('multiple_choice', collect())->count();
-                                                    $essay = $questionTypes->get('essay', collect())->count();
-                                                    $trueFalse = $questionTypes->get('true_false', collect())->count();
-                                                @endphp
-                                                
-                                                @if($multipleChoice > 0)
-                                                    <span class="badge bg-primary-subtle text-primary">
-                                                        <i class="bx bx-list-ol me-1"></i>PG: {{ $multipleChoice }}
-                                                    </span>
-                                                @endif
-                                                
-                                                @if($essay > 0)
-                                                    <span class="badge bg-purple-subtle text-purple">
-                                                        <i class="bx bx-edit me-1"></i>Essay: {{ $essay }}
-                                                    </span>
-                                                @endif
-                                                
-                                                @if($trueFalse > 0)
-                                                    <span class="badge bg-success-subtle text-success">
-                                                        <i class="bx bx-check-double me-1"></i>B/S: {{ $trueFalse }}
-                                                    </span>
-                                                @endif
-                                                
-                                                @if($quiz->soals->count() == 0)
-                                                    <span class="text-muted">-</span>
-                                                @endif
                                             </div>
                                         </td>
                                         <td class="py-4 text-center">
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <div class="rounded-circle bg-warning-subtle d-flex align-items-center justify-content-center me-2"
                                                     style="width: 30px; height: 30px;">
-                                                    <i class="bx bxs-time-five text-warning" style="font-size: 14px;"></i>
+                                                    <i class="ti ti-clock text-warning" style="font-size: 14px;"></i>
                                                 </div>
                                                 <span class="fw-bold text-warning">{{ $quiz->waktu_menit }}</span>
                                                 <small class="text-muted ms-1">min</small>
@@ -228,18 +196,15 @@
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <div class="rounded-circle bg-success-subtle d-flex align-items-center justify-content-center me-2"
                                                     style="width: 30px; height: 30px;">
-                                                    <i class="bx bx-user text-success" style="font-size: 14px;"></i>
+                                                    <i class="ti ti-users text-success" style="font-size: 14px;"></i>
                                                 </div>
                                                 <span class="fw-bold text-success">{{ $quiz->hasilUjian->count() }}</span>
                                             </div>
                                         </td>
                                         <td class="py-4 text-center">
                                             <div class="d-flex align-items-center justify-content-center">
-                                                <div class="rounded-circle bg-success-subtle d-flex align-items-center justify-content-center me-2"
-                                                    style="width: 30px; height: 30px;">
-                                                    <i class="bx bxs-bookmarks text-success" style="font-size: 14px;"></i>
-                                                </div>
-                                                <span class="fw-bold text-success">{{ $quiz->mataPelajaran->nama_mapel }}</span>
+                                                <span
+                                                    class="fw-bold text-success">{{ $quiz->mataPelajaran->nama_mapel }}</span>
                                             </div>
                                         </td>
                                         <td class="py-4 text-center">
@@ -247,29 +212,40 @@
                                                 class="badge bg-{{ $quiz->soals->count() > 0 ? 'success' : 'warning' }}-subtle 
                                                      text-{{ $quiz->soals->count() > 0 ? 'success' : 'warning' }} px-3 py-2">
                                                 <i
-                                                    class="bx bx-{{ $quiz->soals->count() > 0 ? 'check-circle' : 'time-five' }} me-1"></i>
-                                                {{ $quiz->status }}
+                                                    class="ti ti-{{ $quiz->soals->count() > 0 ? 'check-circle' : 'clock' }} me-1"></i>
+                                                {{ $quiz->status_aktivasi === 'aktif' ? 'Aktif' : 'Nonaktif' }}
                                             </span>
+                                        </td>
+                                       <td class="py-4 text-center">
+                                            <form action="{{ route('quiz.toggleAktivasi', $quiz->id) }}" method="POST" onsubmit="return confirm('Apakah kamu yakin ingin mengubah status aktivasi kuis ini?')">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="btn btn-sm 
+                                                    {{ $quiz->status_aktivasi === 'aktif' ? 'btn-danger' : 'btn-success' }}">
+                                                    <i class="ti ti-{{ $quiz->status_aktivasi === 'aktif' ? 'x-circle' : 'check-circle' }} me-1"></i>
+                                                    {{ $quiz->status_aktivasi === 'aktif' ? 'Nonaktifkan' : 'Aktifkan' }}
+                                                </button>
+                                            </form>
                                         </td>
                                         <td class="py-4 text-center pe-4">
                                             <div class="btn-group" role="group">
-                                                <a href="{{ route('backend.quiz.show', $quiz->id) }}" class="btn btn-info btn-sm"
+                                                <a href="{{ route('quiz.show', $quiz->id) }}" class="btn btn-info btn-sm"
                                                     title="Lihat Detail">
-                                                    <i class="bx bx-show p-2"></i>
+                                                    <i class="ti ti-eye"></i>
                                                 </a>
-                                                <a href="{{ route('backend.quiz.edit', $quiz->id) }}"
+                                                <a href="{{ route('quiz.edit', $quiz->id) }}"
                                                     class="btn btn-warning btn-sm" title="Edit Quiz">
-                                                    <i class="bx bxs-edit-alt"></i>
+                                                    <i class="ti ti-edit"></i>
                                                 </a>
                                                 <button type="button" class="btn btn-danger btn-sm" title="Hapus Quiz"
                                                     onclick="deleteQuiz({{ $quiz->id }}, '{{ $quiz->judul_quiz }}')">
-                                                    <i class="bx bxs-trash p-2"></i>
+                                                    <i class="ti ti-trash"></i>
                                                 </button>
                                             </div>
 
                                             <!-- Hidden delete form -->
                                             <form id="delete-form-{{ $quiz->id }}"
-                                                action="{{ route('backend.quiz.destroy', $quiz->id) }}" method="POST"
+                                                action="{{ route('quiz.destroy', $quiz->id) }}" method="POST"
                                                 style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
@@ -293,10 +269,10 @@
                     <h3 class="fw-bold text-dark mb-3">Belum Ada Quiz</h3>
                     <p class="text-muted mb-4 mx-auto" style="max-width: 400px;">
                         Mulai perjalanan pembelajaran Anda dengan membuat quiz pertama.
-                        Buat pertanyaan menarik dengan berbagai tipe soal dan ukur pemahaman peserta dengan mudah!
+                        Buat pertanyaan menarik dan ukur pemahaman peserta dengan mudah!
                     </p>
-                    <a href="{{ route('backend.quiz.create') }}" class="btn btn-primary btn-lg px-5">
-                        <i class="bx bx-plus me-2"></i>Buat Quiz Pertama
+                    <a href="{{ route('quiz.create') }}" class="btn btn-primary btn-lg px-5">
+                        <i class="ti ti-plus me-2"></i>Buat Quiz Pertama
                     </a>
                 </div>
             @endif
@@ -341,7 +317,7 @@
                 <div class="toast-header bg-danger text-white border-0">
                     <div class="rounded-circle bg-white d-flex align-items-center justify-content-center me-2"
                         style="width: 20px; height: 20px;">
-                        <i class="bx bx-x-circle text-danger" style="font-size: 12px;"></i>
+                        <i class="ti ti-x text-danger" style="font-size: 12px;"></i>
                     </div>
                     <strong class="me-auto">Error</strong>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
@@ -369,17 +345,9 @@
                     tempInput.setSelectionRange(0, 99999); // Untuk mobile
                     document.execCommand('copy');
                     document.body.removeChild(tempInput);
-
-                    // Show feedback
-                    const originalIcon = this.innerHTML;
-                    this.innerHTML = '<i class="bx bx-check text-success p-2"></i>';
-                    setTimeout(() => {
-                        this.innerHTML = originalIcon;
-                    }, 2000);
                 });
             });
         });
-
         // Delete confirmation function
         function deleteQuiz(quizId, quizTitle) {
             if (confirm(`Apakah Anda yakin ingin menghapus quiz "${quizTitle}"?\n\nTindakan ini tidak dapat dibatalkan.`)) {
@@ -387,28 +355,5 @@
             }
         }
     </script>
-
-    <style>
-        .bg-purple-subtle {
-            background-color: #f3e5f5;
-        }
-        
-        .text-purple {
-            color: #7b1fa2;
-        }
-        
-        .badge {
-            font-size: 0.75rem;
-        }
-        
-        .question-type-badge {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            font-size: 0.75rem;
-            font-weight: 500;
-            border-radius: 0.25rem;
-        }
-    </style>
-
-    @include('layouts.component-backend.css')
+    @include('layouts.components-backend.css')
 @endsection

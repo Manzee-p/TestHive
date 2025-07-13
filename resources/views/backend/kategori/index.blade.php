@@ -1,3 +1,4 @@
+
 @extends('layouts.backend')
 @section('content')
     <div class="container-fluid">
@@ -21,7 +22,7 @@
                     </div>
                     <div class="col-3">
                         <div class="text-center">
-                            <img src="{{asset ('assets/backend/img/illustrations/man-with-laptop.png') }}" alt="kategori-dashboard"
+                            <img src="{{ asset('assets/backend/images/breadcrumb/ChatBc.png') }}" alt="kategori-dashboard"
                                 class="img-fluid" style="max-height: 120px; filter: brightness(1.1);" />
                         </div>
                     </div>
@@ -47,7 +48,7 @@
                             <div class="me-3">
                                 <div class="rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center"
                                     style="width: 40px; height: 40px;">
-                                    <i class="bx bx-list-ol p-3 text-primary"></i>
+                                    <i class="ti ti-tags text-primary"></i>
                                 </div>
                             </div>
                             <div>
@@ -65,7 +66,7 @@
                     <div class="col-md-4 text-md-end mt-3 mt-md-0">
                         <button class="btn btn-primary btn-lg px-4" data-bs-toggle="modal"
                             data-bs-target="#addCategoryModal">
-                            <i class="bx bx-plus me-2 p-2"></i>Buat kategori Baru
+                            <i class="ti ti-plus me-2"></i>Buat kategori Baru
                         </button>
                     </div>
                 </div>
@@ -77,7 +78,7 @@
             <div class="card-header bg-transparent border-bottom py-3">
                 <div class="d-flex align-items-center justify-content-between">
                     <h5 class="mb-0 fw-bold">
-                        <i class="bx bx-table me-2 text-primary"></i>Tabel kategori
+                        <i class="ti ti-table me-2 text-primary"></i>Tabel kategori
                     </h5>
                     <div class="d-flex align-items-center">
                         <span class="badge bg-primary-subtle text-primary px-3 py-2">
@@ -94,13 +95,13 @@
                             <thead class="table-light">
                                 <tr>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3">
-                                        <i class="bx bx-hash me-1"></i>No
+                                        <i class="ti ti-hash me-1"></i>No
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3">
-                                        <i class="bx bxs-purchase-tag p-2 me-1"></i>Nama Kategori
+                                        <i class="ti ti-tag me-1"></i>Nama Kategori
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3 text-center pe-4">
-                                        <i class="bx bx-cog me-1 P-2"></i>Aksi
+                                        <i class="ti ti-settings me-1"></i>Aksi
                                     </th>
                                 </tr>
                             </thead>
@@ -119,7 +120,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="rounded-circle bg-info-subtle d-flex align-items-center justify-content-center me-3"
                                                     style="width: 40px; height: 40px;">
-                                                    <i class="bx bxs-purchase-tag text-info"></i>
+                                                    <i class="ti ti-tag text-info"></i>
                                                 </div>
                                                 <div>
                                                     <h6 class="mb-0 fw-bold text-dark" title="{{ $item->nama_kategori }}">
@@ -137,17 +138,17 @@
                                                 <button type="button" class="btn btn-warning btn-sm" title="Edit kategori"
                                                     data-bs-toggle="modal" data-bs-target="#editCategoryModal"
                                                     onclick="editCategory({{ $item->id }}, '{{ addslashes($item->nama_kategori) }}')">
-                                                    <i class="bx bxs-edit p-2 "></i>
+                                                    <i class="ti ti-edit"></i>
                                                 </button>
                                                 <button type="button" class="btn btn-danger btn-sm" title="Hapus kategori"
                                                     onclick="deleteKategori({{ $item->id }}, '{{ addslashes($item->nama_kategori) }}')">
-                                                    <i class="bx bx-trash"></i>
+                                                    <i class="ti ti-trash"></i>
                                                 </button>
                                             </div>
 
                                             <!-- Hidden delete form -->
                                             <form id="delete-form-{{ $item->id }}"
-                                                action="{{ route('backend.kategori.destroy', $item->id) }}" method="POST"
+                                                action="{{ route('kategori.destroy', $item->id) }}" method="POST"
                                                 style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
@@ -193,7 +194,7 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
-                <form action="{{ route('backend.kategori.store') }}" method="POST">
+                <form action="{{ route('kategori.store') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
@@ -307,7 +308,7 @@
 
     <script>
         // URL base untuk kategori
-        const kategoriBaseUrl = "{{ route('backend.kategori.index') }}";
+        const kategoriBaseUrl = "{{ route('kategori.index') }}";
 
         // Delete confirmation function
         function deleteKategori(kategoriId, kategoriName) {
@@ -372,5 +373,5 @@
             }
         });
     </script>
-    @include('layouts.component-backend.css')
+    @include('layouts.components-backend.css')
 @endsection

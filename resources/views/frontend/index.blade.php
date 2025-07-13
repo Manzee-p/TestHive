@@ -1,6 +1,6 @@
 @extends('layouts.backend')
 @section('content')
-    @include('layouts.component-backend.css')
+    @include('layouts.components-backend.css')
     <div class="container-fluid">
         <!-- Enhanced Header Section -->
         <div class="card bg-gradient-primary shadow-sm position-relative overflow-hidden mb-5">
@@ -13,7 +13,7 @@
                             <ol class="breadcrumb breadcrumb-light">
                                 <li class="breadcrumb-item">
                                     <a class="text-white text-decoration-none" href="">
-                                        <i class="bx bx-home-smile me-1 p-2"></i>Dashboard
+                                        <i class="ti ti-home me-1"></i>Dasbor
                                     </a>
                                 </li>
                             </ol>
@@ -21,7 +21,7 @@
                     </div>
                     <div class="col-3">
                         <div class="text-center">
-                            <img src="{{asset ('assets/backend/img/illustrations/man-with-laptop.png') }}" alt="quiz-dashboard"
+                            <img src="{{ asset('assets/backend/images/breadcrumb/ChatBc.png') }}" alt="quiz-dashboard"
                                 class="img-fluid" style="max-height: 120px; filter: brightness(1.1);" />
                         </div>
                     </div>
@@ -119,12 +119,12 @@
                                 <div class="mb-3">
                                     <div class="d-flex align-items-center justify-content-between bg-light rounded p-2">
                                         <div class="d-flex align-items-center">
-                                            <i class="bx bxs-key text-primary me-2"></i>
+                                            <i class="ti ti-key text-primary me-2"></i>
                                             <span class="fw-semibold">{{ $quiz->kode_quiz }}</span>
                                         </div>
                                         <button class="btn btn-sm btn-outline-primary copy-btn"
                                             data-quiz-code="{{ $quiz->kode_quiz }}" title="Salin Kode Quiz">
-                                            <i class="bx bx-copy"></i>
+                                            <i class="ti ti-copy"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -134,21 +134,21 @@
                             <div class="row text-center mb-3">
                                 <div class="col-4">
                                     <div class="stats-item">
-                                        <i class="bx bx-file p-2 text-primary d-block mb-1 me-5"></i>
+                                        <i class="ti ti-file-text text-primary d-block mb-1"></i>
                                         <span class="fw-bold d-block">{{ $quiz->soals->count() }}</span>
                                         <small class="text-muted">Soal</small>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="stats-item">
-                                        <i class="bx bxs-time-five p-2 text-warning d-block mb-1"></i>
+                                        <i class="ti ti-clock text-warning d-block mb-1"></i>
                                         <span class="fw-bold d-block">{{ $quiz->waktu_menit }}</span>
                                         <small class="text-muted">Menit</small>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="stats-item">
-                                        <i class="bx bx-calendar text-info d-block mb-1"></i>
+                                        <i class="ti ti-calendar text-info d-block mb-1"></i>
                                         <span
                                             class="fw-bold d-block">{{ \Carbon\Carbon::parse($quiz->tanggal_buat)->format('d/m') }}</span>
                                         <small class="text-muted">Dibuat</small>
@@ -191,11 +191,8 @@
                             </div>
                             <h3 class="mb-3">Tidak Ada Quiz Terbaru</h3>
                             <p class="text-muted mb-4">
-                                Belum ada quiz yang dibuat dalam 7 hari terakhir. Mulai dengan membuat quiz baru!
+                                Belum ada quiz yang dibuat dalam 7 hari terakhir.
                             </p>
-                            <a href="{{ route('backend.quiz.create') }}" class="btn btn-primary btn-lg">
-                                <i class="ti ti-plus me-2"></i>Buat Quiz Pertama
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -214,7 +211,43 @@
     </div>
 
     <!-- Toast Container -->
-    <div id="toastContainer" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;"></div>
+     <!-- Enhanced Toast Messages -->
+    @if (session('success'))
+        <div class="position-fixed top-0 end-0 p-4" style="z-index: 1050;">
+            <div class="toast show border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-success text-white border-0">
+                    <div class="rounded-circle bg-white d-flex align-items-center justify-content-center me-2"
+                        style="width: 20px; height: 20px;">
+                        <i class="ti ti-check text-success" style="font-size: 12px;"></i>
+                    </div>
+                    <strong class="me-auto">Berhasil</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+                </div>
+                <div class="toast-body bg-white">
+                    {{ session('success') }}
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="position-fixed top-0 end-0 p-4" style="z-index: 1050;">
+            <div class="toast show border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-danger text-white border-0">
+                    <div class="rounded-circle bg-white d-flex align-items-center justify-content-center me-2"
+                        style="width: 20px; height: 20px;">
+                        <i class="ti ti-x text-danger" style="font-size: 12px;"></i>
+                    </div>
+                    <strong class="me-auto">Error</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+                </div>
+                <div class="toast-body bg-white">
+                    {{ session('error') }}
+                </div>
+            </div>
+        </div>
+    @endif
+
 
     <style>
         :root {
@@ -465,7 +498,7 @@
             if (showAllBtn) {
                 showAllBtn.addEventListener('click', function() {
                     // This could redirect to a full quiz list page or load more via AJAX
-                    window.location.href = '{{ route('backend.quiz.index') }}?show_all=true';
+                    window.location.href = '{{ route('quiz.index') }}?show_all=true';
                 });
             }
         });

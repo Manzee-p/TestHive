@@ -1,3 +1,4 @@
+
 @extends('layouts.backend')
 @section('content')
 <div class="container-fluid">
@@ -51,11 +52,11 @@
                 </div>
                 
                 <div class="card-body p-4">
-                    <form action="{{ route('backend.users.store') }}" method="POST">
+                    <form action="{{ route('users.store') }}" method="POST">
                         @csrf
 
                         <!-- Nama -->
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="name" class="form-label fw-medium">
                                 <i class="ti ti-user me-1"></i>Nama Lengkap
                             </label>
@@ -70,7 +71,7 @@
                         </div>
 
                         <!-- Email -->
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="email" class="form-label fw-medium">
                                 <i class="ti ti-mail me-1"></i>Email
                             </label>
@@ -85,7 +86,7 @@
                         </div>
 
                         <!-- Row untuk Kelas dan Role -->
-                        <div class="row">
+                        <div class="row mb-2">
                             <!-- Kelas -->
                             <div class="col-md-6 mb-3">
                                 <label for="kelas_id" class="form-label fw-medium">
@@ -167,7 +168,7 @@
                             <button type="submit" class="btn btn-primary px-4">
                                 <i class="ti ti-user-plus me-1"></i>Tambah User
                             </button>
-                            <a href="{{ route('backend.users.index') }}" class="btn btn-light px-4">
+                            <a href="{{ route('users.index') }}" class="btn btn-light px-4">
                                 <i class="ti ti-arrow-left me-1"></i>Kembali
                             </a>
                         </div>
@@ -222,5 +223,5 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-@include('layouts.component-backend.css')
+@include('layouts.components-backend.css')
 @endsection

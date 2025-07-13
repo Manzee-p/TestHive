@@ -1,3 +1,4 @@
+
 @extends('layouts.backend')
 @section('content')
     <div class="container-fluid">
@@ -21,7 +22,7 @@
                     </div>
                     <div class="col-3">
                         <div class="text-center">
-                            <img src="{{asset ('assets/backend/img/illustrations/man-with-laptop.png') }}"
+                            <img src="{{ asset('assets/backend/images/breadcrumb/ChatBc.png') }}"
                                 alt="matapelajaran-dashboard" class="img-fluid"
                                 style="max-height: 120px; filter: brightness(1.1);" />
                         </div>
@@ -48,7 +49,7 @@
                             <div class="me-3">
                                 <div class="rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center"
                                     style="width: 40px; height: 40px;">
-                                    <i class="bx bxs-book-bookmark p-2 text-primary"></i>
+                                    <i class="ti ti-book text-primary"></i>
                                 </div>
                             </div>
                             <div>
@@ -66,7 +67,7 @@
                     <div class="col-md-4 text-md-end mt-3 mt-md-0">
                         <button class="btn btn-primary btn-lg px-4" data-bs-toggle="modal"
                             data-bs-target="#addMataPelajaranModal">
-                            <i class="bx bx-plus p-2 me-2"></i>Buat Mata Pelajaran Baru
+                            <i class="ti ti-plus me-2"></i>Buat Mata Pelajaran Baru
                         </button>
                     </div>
                 </div>
@@ -78,7 +79,7 @@
             <div class="card-header bg-transparent border-bottom py-3">
                 <div class="d-flex align-items-center justify-content-between">
                     <h5 class="mb-0 fw-bold">
-                        <i class="bx bx-table p-2 me-2 text-primary"></i>Tabel Mata Pelajaran
+                        <i class="ti ti-table me-2 text-primary"></i>Tabel Mata Pelajaran
                     </h5>
                     <div class="d-flex align-items-center">
                         <span class="badge bg-primary-subtle text-primary px-3 py-2">
@@ -95,16 +96,16 @@
                             <thead class="table-light">
                                 <tr>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3">
-                                        <i class="bx bx-hash me-1"></i>No
+                                        <i class="ti ti-hash me-1"></i>No
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3">
-                                        <i class="bx bxs-book me-1"></i>Nama Mata Pelajaran
+                                        <i class="ti ti-book me-1"></i>Nama Mata Pelajaran
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3">
-                                        <i class="bx bx-file me-1"></i>Deskripsi
+                                        <i class="ti ti-file-text me-1"></i>Deskripsi
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3 text-center pe-4">
-                                        <i class="bx bxs-cog me-1"></i>Aksi
+                                        <i class="ti ti-settings me-1"></i>Aksi
                                     </th>
                                 </tr>
                             </thead>
@@ -123,7 +124,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="rounded-circle bg-success-subtle d-flex align-items-center justify-content-center me-3"
                                                     style="width: 40px; height: 40px;">
-                                                    <i class="bx bxs-book text-success"></i>
+                                                    <i class="ti ti-book text-success"></i>
                                                 </div>
                                                 <div>
                                                     <h6 class="mb-0 fw-bold text-dark" title="{{ $item->nama_mapel }}">
@@ -131,7 +132,7 @@
                                                     </h6>
                                                     <small class="text-muted">
                                                         <i
-                                                            class="bx bx-calendar me-1"></i>{{ $item->created_at->format('d M Y, H:i') }}
+                                                            class="ti ti-calendar me-1"></i>{{ $item->created_at->format('d M Y, H:i') }}
                                                     </small>
                                                 </div>
                                             </div>
@@ -154,18 +155,18 @@
                                                     title="Edit Mata Pelajaran" data-bs-toggle="modal"
                                                     data-bs-target="#editMataPelajaranModal"
                                                     onclick="editMataPelajaran({{ $item->id }}, '{{ addslashes($item->nama_mapel) }}', '{{ addslashes($item->deskripsi) }}')">
-                                                    <i class="bx bxs-edit"></i>
+                                                    <i class="ti ti-edit"></i>
                                                 </button>
                                                 <button type="button" class="btn btn-danger btn-sm"
                                                     title="Hapus Mata Pelajaran"
                                                     onclick="deleteMataPelajaran({{ $item->id }}, '{{ addslashes($item->nama_mapel) }}')">
-                                                    <i class="bx bxs-trash"></i>
+                                                    <i class="ti ti-trash"></i>
                                                 </button>
                                             </div>
 
                                             <!-- Hidden delete form -->
                                             <form id="delete-form-{{ $item->id }}"
-                                                action="{{ route('backend.matapelajaran.destroy', $item->id) }}" method="POST"
+                                                action="{{ route('matapelajaran.destroy', $item->id) }}" method="POST"
                                                 style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
@@ -193,7 +194,7 @@
                     </p>
                     <button class="btn btn-primary btn-lg px-5" data-bs-toggle="modal"
                         data-bs-target="#addMataPelajaranModal">
-                        <i class="bx bx-plus me-2"></i>Buat Mata Pelajaran Pertama
+                        <i class="ti ti-plus me-2"></i>Buat Mata Pelajaran Pertama
                     </button>
                 </div>
             @endif
@@ -212,7 +213,7 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
-                <form action="{{ route('backend.matapelajaran.store') }}" method="POST">
+                <form action="{{ route('matapelajaran.store') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
@@ -354,7 +355,7 @@
 
     <script>
         // URL base untuk mata pelajaran
-        const mataPelajaranBaseUrl = "{{ route('backend.matapelajaran.index') }}";
+        const mataPelajaranBaseUrl = "{{ route('matapelajaran.index') }}";
 
         // Delete confirmation function
         function deleteMataPelajaran(mataPelajaranId, mataPelajaranName) {
@@ -442,4 +443,5 @@
             }
         });
     </script>
+    @include('layouts.components-backend.css')
 @endsection

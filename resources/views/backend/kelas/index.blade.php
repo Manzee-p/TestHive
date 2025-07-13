@@ -1,3 +1,4 @@
+
 @extends('layouts.backend')
 @section('content')
     <div class="container-fluid">
@@ -148,10 +149,9 @@
                                                 </div>
                                             </div>
                                         </td>
-                                       <td class="py-4">
+                                        <td class="py-4">
                                             <small class="text-muted">
-                                                <i class="ti ti-calendar me-1"></i>
-                                                {{ optional($item->created_at)->format('d M Y, H:i') ?? 'Belum tersedia' }}
+                                                <i class="ti ti-calendar me-1"></i>{{ $item->created_at->format('d M Y, H:i') }}
                                             </small>
                                         </td>
                                         <td class="py-4 text-center pe-4">
@@ -171,7 +171,7 @@
 
                                             <!-- Hidden delete form -->
                                             <form id="delete-form-{{ $item->id }}"
-                                                action="{{ route('backend.kelas.destroy', $item->id) }}" method="POST"
+                                                action="{{ route('kelas.destroy', $item->id) }}" method="POST"
                                                 style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
@@ -217,7 +217,7 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
-                <form action="{{ route('backend.kelas.store') }}" method="POST">
+                <form action="{{ route('kelas.store') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
@@ -241,9 +241,14 @@
                             </label>
                             <select class="form-select @error('jurusan') is-invalid @enderror" id="jurusan" name="jurusan" required>
                                 <option value="">Pilih Jurusan...</option>
-                                <option value="RPL" {{ old('jurusan') == 'RPL' ? 'selected' : '' }}>RPL (Rekayasa Perangkat Lunak)</option>
-                                <option value="TBSM" {{ old('jurusan') == 'TBSM' ? 'selected' : '' }}>TBSM (Teknik dan Bisnis Sepeda Motor)</option>
-                                <option value="TKRO" {{ old('jurusan') == 'TKRO' ? 'selected' : '' }}>TKRO (Teknik Kendaraan Ringan Otomotif)</option>
+                                <option value="IPA" {{ old('jurusan') == 'IPA' ? 'selected' : '' }}>IPA (Ilmu Pengetahuan Alam)</option>
+                                <option value="IPS" {{ old('jurusan') == 'IPS' ? 'selected' : '' }}>IPS (Ilmu Pengetahuan Sosial)</option>
+                                <option value="Bahasa" {{ old('jurusan') == 'Bahasa' ? 'selected' : '' }}>Bahasa</option>
+                                <option value="Teknik Informatika" {{ old('jurusan') == 'Teknik Informatika' ? 'selected' : '' }}>Teknik Informatika</option>
+                                <option value="Akuntansi" {{ old('jurusan') == 'Akuntansi' ? 'selected' : '' }}>Akuntansi</option>
+                                <option value="Pemasaran" {{ old('jurusan') == 'Pemasaran' ? 'selected' : '' }}>Pemasaran</option>
+                                <option value="Administrasi Perkantoran" {{ old('jurusan') == 'Administrasi Perkantoran' ? 'selected' : '' }}>Administrasi Perkantoran</option>
+                                <option value="Lainnya" {{ old('jurusan') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                             </select>
                             @error('jurusan')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -301,11 +306,16 @@
                             <label for="edit_jurusan" class="form-label fw-bold">
                                 <i class="ti ti-certificate me-1"></i>Jurusan
                             </label>
-                           <select class="form-select @error('jurusan') is-invalid @enderror" id="jurusan" name="jurusan" required>
+                            <select class="form-select @error('jurusan') is-invalid @enderror" id="edit_jurusan" name="jurusan" required>
                                 <option value="">Pilih Jurusan...</option>
-                                <option value="RPL">RPL (Rekayasa Perangkat Lunak)</option>
-                                <option value="TBSM">TBSM (Teknik dan Bisnis Sepeda Motor)</option>
-                                <option value="TKRO">TKRO (Teknik Kendaraan Ringan Otomotif)</option>
+                                <option value="IPA">IPA (Ilmu Pengetahuan Alam)</option>
+                                <option value="IPS">IPS (Ilmu Pengetahuan Sosial)</option>
+                                <option value="Bahasa">Bahasa</option>
+                                <option value="Teknik Informatika">Teknik Informatika</option>
+                                <option value="Akuntansi">Akuntansi</option>
+                                <option value="Pemasaran">Pemasaran</option>
+                                <option value="Administrasi Perkantoran">Administrasi Perkantoran</option>
+                                <option value="Lainnya">Lainnya</option>
                             </select>
                             @error('jurusan')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -367,7 +377,7 @@
 
     <script>
         // URL base untuk kelas
-        const kelasBaseUrl = "{{ route('backend.kelas.index') }}";
+        const kelasBaseUrl = "{{ route('kelas.index') }}";
 
         // Delete confirmation function
         function deleteKelas(kelasId, kelasName) {
@@ -454,5 +464,5 @@
             }
         });
     </script>
-    @include('layouts.component-backend.css')
+    @include('layouts.components-backend.css')
 @endsection
