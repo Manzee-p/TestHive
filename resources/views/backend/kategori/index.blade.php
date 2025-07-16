@@ -95,7 +95,7 @@
                             <thead class="table-light">
                                 <tr>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3">
-                                        <i class="ti ti-hash me-1"></i>No
+                                        No
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3">
                                         <i class="ti ti-tag me-1"></i>Nama Kategori

@@ -35,11 +35,17 @@ return new class extends Migration
             $table->integer('bobot_soal')->default(1);
             $table->decimal('bobot_diperoleh', 8, 2)->default(0.00); // Ubah ke decimal untuk mendukung nilai pecahan
             
+            // *** TAMBAHAN BARU: Kolom feedback untuk sistem penilaian esai ***
+            $table->text('feedback')->nullable()->comment('Feedback dari admin untuk jawaban esai peserta');
+            
             $table->timestamps();
             
             // Index untuk optimasi query
             $table->index(['hasil_ujian_id', 'soal_id']);
             $table->index('status_jawaban');
+            
+            // *** TAMBAHAN BARU: Index untuk optimasi query essay grading ***
+            $table->index(['status_jawaban', 'created_at'], 'idx_essay_grading_status_date');
         });
     }
 

@@ -23,17 +23,17 @@ class UserSeeder extends Seeder
         ]);
 
          \App\Models\User::create([
-            'name' => 'Pa Ute',
-            'email' => 'paute@gmail.com',
+            'name' => 'Asep Rohman',
+            'email' => 'asep@gmail.com',
             'kelas_id' => 2,
             'password' => bcrypt('12345678'),
             'isAdmin' => '1',
         ]);
 
         \App\Models\User::create([
-            'name' => 'Asep Rohman',
-            'email' => 'asep@gmail.com',
-            'kelas_id' => 1,
+            'name' => 'dyaa',
+            'email' => 'dyaa@gmail.com',
+            'kelas_id' => 3,
             'password' => bcrypt('12345678'),
             'isAdmin' => '0',
         ]);

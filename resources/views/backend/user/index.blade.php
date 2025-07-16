@@ -89,7 +89,7 @@
                 <table class="table table-hover user-table mb-0">
                     <thead class="table-light">
                         <tr>
-                            <th class="border-0 fw-bold text-dark py-3"><i class="ti ti-hash me-1"></i>No</th>
+                            <th class="border-0 fw-bold text-dark py-3">No</th>
                             <th class="border-0 fw-bold text-dark py-3"><i class="ti ti-user me-1"></i>Nama</th>
                             <th class="border-0 fw-bold text-dark py-3"><i class="ti ti-mail me-1"></i>Email</th>
                             <th class="border-0 fw-bold text-dark py-3"><i class="ti ti-shield me-1"></i>Role</th>

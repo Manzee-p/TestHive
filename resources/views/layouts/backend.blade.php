@@ -11,7 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('/assets/backend/images/logos/favicon.png') }}" />
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('/assets/backend/images/logos/TestHive_logo4.png') }}">
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('/assets/backend/css/styles.css') }}" />
@@ -20,7 +20,7 @@
     <!-- Owl Carousel -->
     <link rel="stylesheet" href="{{ asset('/assets/backend/libs/owl.carousel/dist/assets/owl.carousel.min.css') }}" />
 
-    <title>Modernize Bootstrap Admin</title>
+    <title>TestHive Ujian Online</title>
 
     @yield('styles')
 </head>
@@ -28,7 +28,7 @@
 <body>
     <!-- Preloader -->
     <div class="preloader">
-        <img src="{{ asset('/assets/backend/images/logos/favicon.png') }}" alt="loader"
+        <img src="{{ asset('/assets/backend/images/logos/TestHive_logo4.png') }}" style="width: 50px;" alt="loader"
             class="lds-ripple img-fluid" />
     </div>
 

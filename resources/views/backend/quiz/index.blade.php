@@ -111,13 +111,13 @@
                                         <i class="ti ti-users me-1"></i>Peserta
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3 text-center">
-                                        <i class="ti ti-check-circle me-1"></i>Mapel
+                                        <i class="ti ti-book me-1"></i>Mapel
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3 text-center">
-                                        <i class="ti ti-check-circle me-1"></i>Status
+                                        <i class="ti ti-circle-check me-1"></i>Status
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3 text-center">
-                                        <i class="ti ti-check-circle me-1"></i>Aktivasi
+                                        <i class="ti ti-toggle-left me-1"></i>Aktivasi
                                     </th>
                                     <th scope="col" class="border-0 fw-bold text-dark py-3 text-center pe-4">
                                         <i class="ti ti-settings me-1"></i>Aksi
@@ -129,17 +129,15 @@
                                     <tr class="quiz-row" data-quiz-id="{{ $quiz->id }}">
                                         <td class="py-4">
                                             <div class="d-flex align-items-center">
-                                                <div
-                                                    class="rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center me-3">
-                                                    <i class="ti text-primary"> {{ $loop->iteration }} </i>
+                                                <div class="rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center me-3">
+                                                    <i class="ti ti-file-text text-primary"> {{ $loop->iteration }} </i>
                                                 </div>
                                                 <div>
                                                     <h6 class="mb-1 fw-bold text-dark" title="{{ $quiz->judul_quiz }}">
                                                         {{ Str::limit($quiz->judul_quiz, 35) }}
                                                     </h6>
                                                     @if ($quiz->kategori)
-                                                        <small
-                                                            class="text-muted">{{ $quiz->kategori->nama_kategori }}</small>
+                                                        <small class="text-muted">{{ $quiz->kategori->nama_kategori }}</small>
                                                     @endif
                                                     <div class="mt-1">
                                                         <small class="text-muted">
@@ -149,6 +147,8 @@
                                                 </div>
                                             </div>
                                         </td>
+                                        
+                                        <!-- KODE QUIZ -->
                                         <td class="py-4 text-center">
                                             @if ($quiz->kode_quiz)
                                                 <div class="d-flex align-items-center justify-content-center">
@@ -165,14 +165,24 @@
                                                 <span class="text-muted">-</span>
                                             @endif
                                         </td>
+                                        
+                                        <!-- TANGGAL -->
                                         <td class="py-4 text-center">
                                             <div class="d-flex flex-column align-items-center">
-                                                <span
-                                                    class="fw-bold text-dark">{{ \Carbon\Carbon::parse($quiz->tanggal_buat)->format('d M Y') }}</span>
-                                                <small
-                                                    class="text-muted">{{ \Carbon\Carbon::parse($quiz->tanggal_buat)->format('H:i') }}</small>
+                                                <div class="d-flex align-items-center mb-1">
+                                                    <div class="rounded-circle bg-secondary-subtle d-flex align-items-center justify-content-center me-2"
+                                                        style="width: 30px; height: 30px;">
+                                                        <i class="ti ti-calendar text-secondary" style="font-size: 14px;"></i>
+                                                    </div>
+                                                    <span class="fw-bold text-dark">{{ \Carbon\Carbon::parse($quiz->tanggal_buat)->format('d M Y') }}</span>
+                                                </div>
+                                                <small class="text-muted">
+                                                    <i class="ti ti-clock me-1"></i>{{ \Carbon\Carbon::parse($quiz->tanggal_buat)->format('H:i') }}
+                                                </small>
                                             </div>
                                         </td>
+                                        
+                                        <!-- JUMLAH SOAL -->
                                         <td class="py-4 text-center">
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <div class="rounded-circle bg-info-subtle d-flex align-items-center justify-content-center me-2"
@@ -182,6 +192,8 @@
                                                 <span class="fw-bold text-info">{{ $quiz->soals->count() }}</span>
                                             </div>
                                         </td>
+                                        
+                                        <!-- DURASI -->
                                         <td class="py-4 text-center">
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <div class="rounded-circle bg-warning-subtle d-flex align-items-center justify-content-center me-2"
@@ -192,6 +204,8 @@
                                                 <small class="text-muted ms-1">min</small>
                                             </div>
                                         </td>
+                                        
+                                        <!-- PESERTA -->
                                         <td class="py-4 text-center">
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <div class="rounded-circle bg-success-subtle d-flex align-items-center justify-content-center me-2"
@@ -201,23 +215,31 @@
                                                 <span class="fw-bold text-success">{{ $quiz->hasilUjian->count() }}</span>
                                             </div>
                                         </td>
+                                        
+                                        <!-- MATA PELAJARAN -->
                                         <td class="py-4 text-center">
                                             <div class="d-flex align-items-center justify-content-center">
-                                                <span
-                                                    class="fw-bold text-success">{{ $quiz->mataPelajaran->nama_mapel }}</span>
+                                                <div class="rounded-circle bg-purple-subtle d-flex align-items-center justify-content-center me-2"
+                                                    style="width: 30px; height: 30px;">
+                                                    <i class="ti ti-books text-purple" style="font-size: 14px;"></i>
+                                                </div>
+                                                <span class="fw-bold text-purple">{{ $quiz->mataPelajaran->nama_mapel }}</span>
                                             </div>
                                         </td>
+                                        
+                                        <!-- STATUS -->
                                         <td class="py-4 text-center">
-                                            <span
-                                                class="badge bg-{{ $quiz->soals->count() > 0 ? 'success' : 'warning' }}-subtle 
-                                                     text-{{ $quiz->soals->count() > 0 ? 'success' : 'warning' }} px-3 py-2">
-                                                <i
-                                                    class="ti ti-{{ $quiz->soals->count() > 0 ? 'check-circle' : 'clock' }} me-1"></i>
+                                            <span class="badge bg-{{ $quiz->soals->count() > 0 ? 'success' : 'warning' }}-subtle 
+                                                    text-{{ $quiz->soals->count() > 0 ? 'success' : 'warning' }} px-3 py-2">
+                                                <i class="ti ti-{{ $quiz->soals->count() > 0 ? 'check-circle' : 'clock' }} me-1"></i>
                                                 {{ $quiz->status_aktivasi === 'aktif' ? 'Aktif' : 'Nonaktif' }}
                                             </span>
                                         </td>
-                                       <td class="py-4 text-center">
-                                            <form action="{{ route('quiz.toggleAktivasi', $quiz->id) }}" method="POST" onsubmit="return confirm('Apakah kamu yakin ingin mengubah status aktivasi kuis ini?')">
+                                        
+                                        <!-- AKTIVASI -->
+                                        <td class="py-4 text-center">
+                                            <form action="{{ route('quiz.toggleAktivasi', $quiz->id) }}" method="POST" 
+                                                onsubmit="return confirm('Apakah kamu yakin ingin mengubah status aktivasi kuis ini?')">
                                                 @csrf
                                                 @method('PATCH')
                                                 <button type="submit" class="btn btn-sm 
@@ -227,6 +249,8 @@
                                                 </button>
                                             </form>
                                         </td>
+                                        
+                                        <!-- AKSI -->
                                         <td class="py-4 text-center pe-4">
                                             <div class="btn-group" role="group">
                                                 <a href="{{ route('quiz.show', $quiz->id) }}" class="btn btn-info btn-sm"

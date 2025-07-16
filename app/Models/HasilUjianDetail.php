@@ -23,6 +23,7 @@ class HasilUjianDetail extends Model
         'status_jawaban',
         'bobot_soal',
         'bobot_diperoleh',
+        'feedback', // *** TAMBAHAN BARU: Kolom untuk feedback penilaian esai ***
     ];
 
     protected $casts = [
@@ -102,6 +103,46 @@ class HasilUjianDetail extends Model
         return $query->where('status_jawaban', 'tidak dijawab');
     }
 
+    // *** TAMBAHAN BARU: Scope methods untuk sistem penilaian esai ***
+
+    /**
+     * Scope untuk filter berdasarkan tipe soal
+     */
+    public function scopeByQuestionType($query, $type)
+    {
+        return $query->whereHas('soal', function($q) use ($type) {
+            $q->where('tipe', $type);
+        });
+    }
+
+    /**
+     * Scope untuk filter soal esai yang belum dinilai
+     */
+    public function scopePendingEssays($query)
+    {
+        return $query->whereHas('soal', function($q) {
+            $q->where('tipe', 'essay');
+        })->where('status_jawaban', 'pending');
+    }
+
+    /**
+     * Scope untuk filter berdasarkan quiz milik user tertentu
+     */
+    public function scopeByQuizOwner($query, $userId)
+    {
+        return $query->whereHas('hasilUjian.quiz', function($q) use ($userId) {
+            $q->where('user_id', $userId);
+        });
+    }
+
+    /**
+     * Scope untuk jawaban yang sudah dinilai
+     */
+    public function scopeGraded($query)
+    {
+        return $query->whereIn('status_jawaban', ['benar', 'salah', 'sebagian']);
+    }
+
     /**
      * Accessor untuk mendapatkan jawaban peserta dalam format yang mudah dibaca
      */
@@ -127,15 +168,15 @@ class HasilUjianDetail extends Model
     {
         switch ($this->status_jawaban) {
             case 'benar':
-                return '<span class="badge bg-success">Benar</span>';
+                return '<span class="badge bg-success"><i class="fas fa-check"></i> Benar</span>';
             case 'salah':
-                return '<span class="badge bg-danger">Salah</span>';
+                return '<span class="badge bg-danger"><i class="fas fa-times"></i> Salah</span>';
             case 'sebagian':
-                return '<span class="badge bg-warning">Sebagian Benar</span>';
+                return '<span class="badge bg-warning"><i class="fas fa-minus"></i> Sebagian Benar</span>';
             case 'pending':
-                return '<span class="badge bg-info">Pending</span>';
+                return '<span class="badge bg-info"><i class="fas fa-clock"></i> Belum Dinilai</span>';
             case 'tidak dijawab':
-                return '<span class="badge bg-secondary">Tidak Dijawab</span>';
+                return '<span class="badge bg-secondary"><i class="fas fa-ban"></i> Tidak Dijawab</span>';
             default:
                 return '<span class="badge bg-secondary">Unknown</span>';
         }
@@ -150,6 +191,69 @@ class HasilUjianDetail extends Model
             return 0;
         }
         return round(($this->bobot_diperoleh / $this->bobot_soal) * 100, 2);
+    }
+
+    // *** TAMBAHAN BARU: Accessor untuk sistem penilaian esai ***
+
+    /**
+     * Accessor untuk persentase skor (alias untuk konsistensi)
+     */
+    public function getPercentageAttribute()
+    {
+        return $this->persentase_bobot;
+    }
+
+    /**
+     * Accessor untuk warna berdasarkan persentase
+     */
+    public function getPercentageColorAttribute()
+    {
+        $percentage = $this->percentage;
+        
+        if ($percentage >= 80) {
+            return 'success';
+        } elseif ($percentage >= 60) {
+            return 'warning';
+        } else {
+            return 'danger';
+        }
+    }
+
+    /**
+     * Accessor untuk icon berdasarkan status
+     */
+    public function getStatusIconAttribute()
+    {
+        switch ($this->status_jawaban) {
+            case 'benar':
+                return 'fas fa-check-circle text-success';
+            case 'salah':
+                return 'fas fa-times-circle text-danger';
+            case 'sebagian':
+                return 'fas fa-minus-circle text-warning';
+            case 'pending':
+                return 'fas fa-clock text-info';
+            case 'tidak dijawab':
+                return 'fas fa-ban text-secondary';
+            default:
+                return 'fas fa-question-circle text-muted';
+        }
+    }
+
+    /**
+     * Get feedback dengan format yang aman untuk HTML
+     */
+    public function getSafeFeedbackAttribute()
+    {
+        return $this->feedback ? nl2br(e($this->feedback)) : null;
+    }
+
+    /**
+     * Accessor untuk status badge dengan style Bootstrap 5
+     */
+    public function getStatusBadgeAttribute()
+    {
+        return $this->status_jawaban_badge; // Menggunakan accessor yang sudah ada
     }
 
     /**
@@ -190,5 +294,59 @@ class HasilUjianDetail extends Model
     public function isNotAnswered()
     {
         return $this->status_jawaban === 'tidak dijawab';
+    }
+
+    // *** TAMBAHAN BARU: Helper methods untuk sistem penilaian esai ***
+
+    /**
+     * Check apakah jawaban memiliki feedback
+     */
+    public function hasFeedback()
+    {
+        return !empty($this->feedback);
+    }
+
+    /**
+     * Check apakah ini adalah soal esai
+     */
+    public function isEssayQuestion()
+    {
+        return $this->soal && $this->soal->tipe === 'essay';
+    }
+
+    /**
+     * Get formatted feedback untuk tampilan
+     */
+    public function getFormattedFeedback()
+    {
+        if (!$this->hasFeedback()) {
+            return null;
+        }
+
+        return [
+            'text' => $this->feedback,
+            'safe_html' => $this->safe_feedback,
+            'has_content' => true
+        ];
+    }
+
+    /**
+     * Method untuk mendapatkan info lengkap jawaban
+     */
+    public function getAnswerInfo()
+    {
+        return [
+            'jawaban' => $this->jawaban_peserta_formatted,
+            'status' => $this->status_jawaban,
+            'status_badge' => $this->status_badge,
+            'status_icon' => $this->status_icon,
+            'bobot_soal' => $this->bobot_soal,
+            'bobot_diperoleh' => $this->bobot_diperoleh,
+            'persentase' => $this->percentage,
+            'persentase_color' => $this->percentage_color,
+            'feedback' => $this->getFormattedFeedback(),
+            'is_essay' => $this->isEssayQuestion(),
+            'is_pending' => $this->isPending(),
+        ];
     }
 }

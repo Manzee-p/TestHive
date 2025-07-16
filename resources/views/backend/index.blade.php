@@ -23,7 +23,7 @@
                         <div class="text-center">
                             <img src="{{ asset('assets/backend/images/breadcrumb/ChatBc.png') }}" alt="quiz-dashboard"
                                 class="img-fluid" style="max-height: 120px; filter: brightness(1.1);" />
-                        </div>
+                        </div> 
                     </div>
                 </div>
             </div>
