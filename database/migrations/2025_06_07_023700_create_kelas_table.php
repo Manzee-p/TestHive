@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kelas')->unique();
-            $table->enum('jurusan', ['RPL', 'TBSM', 'TKRO', 'UMUM']);
+            $table->enum('jurusan', ['RPL', 'TBSM', 'TKRO', 'UMUM', 'IPA (Ilmu Pengetahuan Alam)', 'IPS (Ilmu Pengetahuan Sosial)', 'Bahasa', 'Teknik Informatika', 'Akuntansi', 'Pemasaran', 'Administrasi Perkantoran', 'Lainnya']);
             $table->timestamps();
         });
     }

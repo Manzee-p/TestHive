@@ -117,8 +117,8 @@
             </div>
         </div>
 
-        <!-- Bulk Grading Form -->
-        <form action="{{ route('quiz.essay.bulk-grade') }}" method="POST" id="bulkGradeForm">
+        <!-- Multiple Grading Form -->
+        <form action="{{ route('quiz.essay.grade-multiple') }}" method="POST" id="multipleGradeForm">
             @csrf
             
             @foreach($userEssays as $index => $essay)
@@ -175,7 +175,7 @@
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Jawaban Peserta:</label>
                             @if($essay->jawaban_peserta)
-                                <div class="answer-box">
+                                <div class="answer-box-tight">
                                     {{ $essay->jawaban_peserta }}
                                 </div>
                             @else
@@ -414,17 +414,22 @@
             margin-top: 0.25rem;
         }
 
-        .answer-box {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 6px;
-            padding: 1rem;
-            min-height: 80px;
-            white-space: pre-wrap;
-            font-family: inherit;
-            font-size: 14px;
-            line-height: 1.5;
-        }
+        .answer-box-tight {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 0.75rem;
+    min-height: 60px;
+    white-space: pre-line; /* Changed from pre-wrap to pre-line */
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.3;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin: 0;
+}
+
+        
 
         .no-answer {
             text-align: center;
@@ -513,7 +518,7 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('bulkGradeForm');
+        const form = document.getElementById('multipleGradeForm');
         const submitBtn = document.getElementById('submitBtn');
         const autoGradeBtn = document.getElementById('autoGradeBtn');
         const totalEssays = {{ $userEssays->count() }};
@@ -650,7 +655,7 @@
 
         function autoGradeAllEssays() {
             document.querySelectorAll('.essay-card').forEach((card, index) => {
-                const answerBox = card.querySelector('.answer-box');
+                const answerBox = card.querySelector('.answer-box-tight');
                 const noAnswer = card.querySelector('.no-answer');
                 
                 let percentage = 0;

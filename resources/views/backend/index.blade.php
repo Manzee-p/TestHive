@@ -214,7 +214,7 @@
                             <div class="mb-3">
                                 <small class="text-muted">
                                     <i class="ti ti-calendar me-1"></i>
-                                    Dibuat {{ \Carbon\Carbon::parse($quiz->tanggal_buat)->diffForHumans() }}
+                                    Dibuat {{ \Carbon\Carbon::parse($quiz->tanggal_buat)->locale('id')->diffForHumans() }}
                                 </small>
                             </div>
 

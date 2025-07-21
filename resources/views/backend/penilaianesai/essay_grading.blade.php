@@ -23,103 +23,100 @@
                         </nav>
                     </div>
 
-    <!-- Modal for User Details -->
-    <div class="modal fade" id="userDetailsModal" tabindex="-1" aria-labelledby="userDetailsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-gradient-primary text-white">
-                    <h5 class="modal-title" id="userDetailsModalLabel">
-                        <i class="ti ti-user me-2"></i>Detail Penilaian Peserta
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-4 text-center mb-4">
-                            <div class="user-avatar-large mx-auto mb-3" id="modalUserAvatar">
-                                <!-- Avatar will be inserted here -->
-                            </div>
-                            <h4 id="modalUserName" class="mb-1"></h4>
-                            <p class="text-muted" id="modalUserEmail"></p>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="row">
-                                <div class="col-6 mb-3">
-                                    <div class="stat-card">
-                                        <div class="stat-icon-small bg-success-subtle">
-                                            <i class="ti ti-file-check text-success"></i>
+                    <!-- Modal for User Details -->
+                    <div class="modal fade" id="userDetailsModal" tabindex="-1" aria-labelledby="userDetailsModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header bg-gradient-primary text-white">
+                                    <h5 class="modal-title" id="userDetailsModalLabel">
+                                        <i class="ti ti-user me-2"></i>Detail Penilaian Peserta
+                                    </h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-4 text-center mb-4">
+                                            <div class="user-avatar-large mx-auto mb-3" id="modalUserAvatar">
+                                                <!-- Avatar will be inserted here -->
+                                            </div>
+                                            <h4 id="modalUserName" class="mb-1"></h4>
+                                            <p class="text-muted" id="modalUserEmail"></p>
                                         </div>
-                                        <div class="stat-info">
-                                            <h3 id="modalTotalEssays" class="mb-0"></h3>
-                                            <small class="text-muted">Total Essays Graded</small>
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-6 mb-3">
+                                                    <div class="stat-card">
+                                                        <div class="stat-icon-small bg-success-subtle">
+                                                            <i class="ti ti-file-check text-success"></i>
+                                                        </div>
+                                                        <div class="stat-info">
+                                                            <h3 id="modalTotalEssays" class="mb-0"></h3>
+                                                            <small class="text-muted">Total Essays Graded</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 mb-3">
+                                                    <div class="stat-card">
+                                                        <div class="stat-icon-small bg-warning-subtle">
+                                                            <i class="ti ti-trophy text-warning"></i>
+                                                        </div>
+                                                        <div class="stat-info">
+                                                            <h3 id="modalAvgScore" class="mb-0"></h3>
+                                                            <small class="text-muted">Average Score</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="performance-breakdown mt-4">
+                                                <h6 class="mb-3">Performance Breakdown</h6>
+                                                <div class="progress-item mb-3">
+                                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                                        <span class="text-success">
+                                                            <i class="ti ti-check-circle me-1"></i>Jawaban Benar
+                                                        </span>
+                                                        <span id="modalCorrectCount" class="fw-bold"></span>
+                                                    </div>
+                                                    <div class="progress" style="height: 8px;">
+                                                        <div id="modalCorrectBar" class="progress-bar bg-success" role="progressbar"></div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="progress-item mb-3">
+                                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                                        <span class="text-warning">
+                                                            <i class="ti ti-clock me-1"></i>Jawaban Sebagian
+                                                        </span>
+                                                        <span id="modalPartialCount" class="fw-bold"></span>
+                                                    </div>
+                                                    <div class="progress" style="height: 8px;">
+                                                        <div id="modalPartialBar" class="progress-bar bg-warning" role="progressbar"></div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="progress-item mb-3">
+                                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                                        <span class="text-danger">
+                                                            <i class="ti ti-x-circle me-1"></i>Jawaban Salah
+                                                        </span>
+                                                        <span id="modalIncorrectCount" class="fw-bold"></span>
+                                                    </div>
+                                                    <div class="progress" style="height: 8px;">
+                                                        <div id="modalIncorrectBar" class="progress-bar bg-danger" role="progressbar"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6 mb-3">
-                                    <div class="stat-card">
-                                        <div class="stat-icon-small bg-warning-subtle">
-                                            <i class="ti ti-trophy text-warning"></i>
-                                        </div>
-                                        <div class="stat-info">
-                                            <h3 id="modalAvgScore" class="mb-0"></h3>
-                                            <small class="text-muted">Average Score</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="performance-breakdown mt-4">
-                                <h6 class="mb-3">Performance Breakdown</h6>
-                                <div class="progress-item mb-3">
-                                    <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <span class="text-success">
-                                            <i class="ti ti-check-circle me-1"></i>Jawaban Benar
-                                        </span>
-                                        <span id="modalCorrectCount" class="fw-bold"></span>
-                                    </div>
-                                    <div class="progress" style="height: 8px;">
-                                        <div id="modalCorrectBar" class="progress-bar bg-success" role="progressbar"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="progress-item mb-3">
-                                    <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <span class="text-warning">
-                                            <i class="ti ti-clock me-1"></i>Jawaban Sebagian
-                                        </span>
-                                        <span id="modalPartialCount" class="fw-bold"></span>
-                                    </div>
-                                    <div class="progress" style="height: 8px;">
-                                        <div id="modalPartialBar" class="progress-bar bg-warning" role="progressbar"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="progress-item mb-3">
-                                    <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <span class="text-danger">
-                                            <i class="ti ti-x-circle me-1"></i>Jawaban Salah
-                                        </span>
-                                        <span id="modalIncorrectCount" class="fw-bold"></span>
-                                    </div>
-                                    <div class="progress" style="height: 8px;">
-                                        <div id="modalIncorrectBar" class="progress-bar bg-danger" role="progressbar"></div>
-                                    </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        <i class="ti ti-x me-2"></i>Tutup
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        <i class="ti ti-x me-2"></i>Tutup
-                    </button>
-                    <button type="button" class="btn btn-primary" onclick="exportUserReport()">
-                        <i class="ti ti-download me-2"></i>Export Report
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
                     <div class="col-3">
                         <div class="text-center">
                             <img src="{{ asset('assets/backend/images/breadcrumb/ChatBc.png') }}" alt="essay-grading"
@@ -142,6 +139,8 @@
         <!-- Enhanced Stats Cards -->
         <div class="row">
         @php
+            // Pastikan $essayAnswers ada, jika tidak buat collection kosong
+            $essayAnswers = $essayAnswers ?? collect();
             $groupedByUser = $essayAnswers->groupBy('hasilUjian.user_id');
             $totalUsers = $groupedByUser->count();
             $pendingCount = $essayAnswers->count();
@@ -280,7 +279,7 @@
         <div class="tab-content" id="gradingTabContent">
             <!-- Pending Essays Tab -->
             <div class="tab-pane fade show active" id="pending-content" role="tabpanel">
-                @if($essayAnswers->count() > 0)
+                @if(isset($essayAnswers) && $essayAnswers->count() > 0)
                     @php
                         $groupedByUser = $essayAnswers->groupBy('hasilUjian.user_id');
                     @endphp
@@ -443,7 +442,6 @@
                                         @if($essayCount > 0)
                                             <div class="action-button">
                                                 @if($essayCount == 1)
-                                                    {{-- Single essay - langsung ke grade --}}
                                                     <a href="{{ route('quiz.essay.grade', $userEssays->first()->id) }}" class="grade-btn">
                                                         <div class="btn-icon">
                                                             <i class="ti ti-edit"></i>
@@ -454,13 +452,10 @@
                                                         </div>
                                                     </a>
                                                 @else
-                                                    {{-- Multiple essays - ke halaman daftar penilaian --}}
-                                                    <a href="{{ route('quiz.essay.grading') }}" class="grade-btn">
+                                                    <a href="{{ route('quiz.essay.grade-user', $userId) }}" class="grade-btn">
                                                         <div class="btn-icon">
                                                             <i class="ti ti-list-check"></i>
-                                                            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
-                                                                {{ $essayCount }}
-                                                            </span>
+                                                            {{-- BADGE MERAH DIHAPUS DARI SINI --}}
                                                         </div>
                                                         <div class="btn-content">
                                                             <span class="btn-title">Mulai Penilaian</span>
@@ -470,7 +465,6 @@
                                                 @endif
                                             </div>
                                         @else
-                                            {{-- Ketika semua esai sudah dinilai --}}
                                             <div class="action-button">
                                                 <a href="{{ route('quiz.essay.grading') }}" class="grade-btn grade-btn-completed">
                                                     <div class="btn-icon">
@@ -490,7 +484,7 @@
                     </div>
 
                     <!-- Pagination -->
-                    @if($essayAnswers->hasPages())
+                    @if(isset($essayAnswers) && $essayAnswers->hasPages())
                         <div class="d-flex justify-content-center mt-4">
                             {{ $essayAnswers->links() }}
                         </div>

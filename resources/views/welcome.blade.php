@@ -27,13 +27,6 @@
   <!-- Main CSS File -->
   <link href="{{ asset('assets/frontend/css/main.css')}}" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: FlexStart
-  * Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
-  * Updated: Nov 01 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body class="index-page">
@@ -127,21 +120,21 @@
 
 </section><!-- /Values Section -->
 
-    <!-- Features Section -->
+    <!-- Bagian Fitur -->
     <section id="features" class="features section">
 
-      <!-- Section Title -->
+      <!-- Judul Seksi -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Features</h2>
-        <p>Our Advacedd Features<br></p>
-      </div><!-- End Section Title -->
+        <h2>Fitur</h2>
+        <p>Fitur Unggulan dari TestHive<br></p>
+      </div><!-- Akhir Judul Seksi -->
 
       <div class="container">
 
         <div class="row gy-5">
 
           <div class="col-xl-6" data-aos="zoom-out" data-aos-delay="100">
-            <img src="{{ asset('assets/frontend/img/features.png')}}" class="img-fluid" alt="">
+            <img src="{{ asset('assets/frontend/img/features.png')}}" class="img-fluid" alt="Fitur TestHive">
           </div>
 
           <div class="col-xl-6 d-flex">
@@ -150,44 +143,44 @@
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
                 <div class="feature-box d-flex align-items-center">
                   <i class="bi bi-check"></i>
-                  <h3>Eos aspernatur rem</h3>
+                  <h3>Ujian Online Interaktif</h3>
                 </div>
-              </div><!-- End Feature Item -->
+              </div><!-- Akhir Item Fitur -->
 
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
                 <div class="feature-box d-flex align-items-center">
                   <i class="bi bi-check"></i>
-                  <h3>Facilis neque ipsa</h3>
+                  <h3>Soal Acak & Jawaban Dinamis</h3>
                 </div>
-              </div><!-- End Feature Item -->
+              </div><!-- Akhir Item Fitur -->
 
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
                 <div class="feature-box d-flex align-items-center">
                   <i class="bi bi-check"></i>
-                  <h3>Volup amet volupt</h3>
+                  <h3>Penilaian Otomatis & Real-time</h3>
                 </div>
-              </div><!-- End Feature Item -->
+              </div><!-- Akhir Item Fitur -->
 
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
                 <div class="feature-box d-flex align-items-center">
                   <i class="bi bi-check"></i>
-                  <h3>Rerum omnis sint</h3>
+                  <h3>Laporan Hasil Lengkap</h3>
                 </div>
-              </div><!-- End Feature Item -->
+              </div><!-- Akhir Item Fitur -->
 
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="600">
                 <div class="feature-box d-flex align-items-center">
                   <i class="bi bi-check"></i>
-                  <h3>Alias possimus</h3>
+                  <h3>Manajemen Kelas & Kategori</h3>
                 </div>
-              </div><!-- End Feature Item -->
+              </div><!-- Akhir Item Fitur -->
 
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="700">
                 <div class="feature-box d-flex align-items-center">
                   <i class="bi bi-check"></i>
-                  <h3>Repellendus molli</h3>
+                  <h3>Tampilan Modern & Responsif</h3>
                 </div>
-              </div><!-- End Feature Item -->
+              </div><!-- Akhir Item Fitur -->
 
             </div>
           </div>
@@ -196,9 +189,10 @@
 
       </div>
 
-    </section><!-- /Features Section -->
+    </section><!-- /Bagian Fitur -->
 
-    <!-- Alt Features Section -->
+
+    <!-- Bagian Fitur Tambahan -->
     <section id="alt-features" class="alt-features section">
 
       <div class="container">
@@ -212,73 +206,74 @@
               <div class="col-md-6 icon-box">
                 <i class="bi bi-award"></i>
                 <div>
-                  <h4>Corporis voluptates sit</h4>
-                  <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+                  <h4>Sertifikat Otomatis</h4>
+                  <p>TestHive menyediakan fitur cetak sertifikat otomatis setelah menyelesaikan ujian dengan skor tertentu.</p>
                 </div>
-              </div><!-- End Feature Item -->
+              </div><!-- Akhir Item Fitur -->
 
               <div class="col-md-6 icon-box">
                 <i class="bi bi-card-checklist"></i>
                 <div>
-                  <h4>Ullamco laboris nisi</h4>
-                  <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+                  <h4>Bank Soal Terkelola</h4>
+                  <p>Kelola ribuan soal berdasarkan kategori, tingkat kesulitan, dan tipe ujian secara efisien.</p>
                 </div>
-              </div><!-- End Feature Item -->
+              </div><!-- Akhir Item Fitur -->
 
               <div class="col-md-6 icon-box">
                 <i class="bi bi-dribbble"></i>
                 <div>
-                  <h4>Labore consequatur</h4>
-                  <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
+                  <h4>Mode Ujian Fleksibel</h4>
+                  <p>Dukung berbagai format: latihan, tryout, ujian resmi, atau simulasi dengan waktu yang bisa diatur.</p>
                 </div>
-              </div><!-- End Feature Item -->
+              </div><!-- Akhir Item Fitur -->
 
               <div class="col-md-6 icon-box">
                 <i class="bi bi-filter-circle"></i>
                 <div>
-                  <h4>Beatae veritatis</h4>
-                  <p>Expedita veritatis consequuntur nihil tempore laudantium vitae denat pacta</p>
+                  <h4>Anti-Kecurangan</h4>
+                  <p>Dilengkapi fitur acak soal & jawaban, timer, serta pelacakan aktivitas peserta selama ujian.</p>
                 </div>
-              </div><!-- End Feature Item -->
+              </div><!-- Akhir Item Fitur -->
 
               <div class="col-md-6 icon-box">
                 <i class="bi bi-lightning-charge"></i>
                 <div>
-                  <h4>Molestiae dolor</h4>
-                  <p>Et fuga et deserunt et enim. Dolorem architecto ratione tensa raptor marte</p>
+                  <h4>Kinerja Cepat & Stabil</h4>
+                  <p>Didukung oleh teknologi Laravel & optimasi performa, TestHive tetap responsif meskipun banyak peserta aktif.</p>
                 </div>
-              </div><!-- End Feature Item -->
+              </div><!-- Akhir Item Fitur -->
 
               <div class="col-md-6 icon-box">
                 <i class="bi bi-patch-check"></i>
                 <div>
-                  <h4>Explicabo consectetur</h4>
-                  <p>Est autem dicta beatae suscipit. Sint veritatis et sit quasi ab aut inventore</p>
+                  <h4>Validasi Nilai Otomatis</h4>
+                  <p>Setiap nilai langsung terakumulasi, tervalidasi, dan dapat diekspor dalam format laporan yang rapi.</p>
                 </div>
-              </div><!-- End Feature Item -->
+              </div><!-- Akhir Item Fitur -->
 
             </div>
 
           </div>
 
           <div class="col-xl-5 d-flex align-items-center order-1 order-xl-2" data-aos="fade-up" data-aos-delay="100">
-            <img src="{{ asset('assets/frontend/img/alt-features.png')}}" class="img-fluid" alt="">
+            <img src="{{ asset('assets/frontend/img/alt-features.png')}}" class="img-fluid" alt="Fitur Tambahan TestHive">
           </div>
 
         </div>
 
       </div>
 
-    </section><!-- /Alt Features Section -->
+    </section><!-- /Bagian Fitur Tambahan -->
 
-    <!-- Services Section -->
+
+    <!-- Bagian Layanan -->
     <section id="services" class="services section">
 
-      <!-- Section Title -->
+      <!-- Judul Seksi -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Services</h2>
-        <p>Check Our Services<br></p>
-      </div><!-- End Section Title -->
+        <h2>Layanan</h2>
+        <p>Lihat Layanan dari TestHive<br></p>
+      </div><!-- Akhir Judul Seksi -->
 
       <div class="container">
 
@@ -287,157 +282,62 @@
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="service-item item-cyan position-relative">
               <i class="bi bi-activity icon"></i>
-              <h3>Nesciunt Mete</h3>
-              <p>Provident nihil minus qui consequatur non omnis maiores. Eos accusantium minus dolores iure perferendis tempore et consequatur.</p>
-              <a href="#" class="read-more stretched-link"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+              <h3>Manajemen Ujian</h3>
+              <p>Atur jadwal, durasi, dan jenis ujian dengan mudah. Mendukung berbagai tipe soal seperti pilihan ganda, benar/salah, dan esai.</p>
+              <a href="#" class="read-more stretched-link"><span>Selengkapnya</span> <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
+          </div><!-- Akhir Item Layanan -->
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item item-orange position-relative">
               <i class="bi bi-broadcast icon"></i>
-              <h3>Eosle Commodi</h3>
-              <p>Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum hic non ut nesciunt dolorem.</p>
-              <a href="#" class="read-more stretched-link"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+              <h3>Ujian Online Real-time</h3>
+              <p>Peserta dapat mengikuti ujian secara daring dengan waktu nyata dan sistem otomatis yang memantau setiap aktivitas.</p>
+              <a href="#" class="read-more stretched-link"><span>Selengkapnya</span> <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
+          </div><!-- Akhir Item Layanan -->
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
             <div class="service-item item-teal position-relative">
               <i class="bi bi-easel icon"></i>
-              <h3>Ledo Markt</h3>
-              <p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci eos earum corrupti.</p>
-              <a href="#" class="read-more stretched-link"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+              <h3>Dashboard & Statistik</h3>
+              <p>Lihat grafik performa siswa, jumlah ujian, dan rata-rata nilai melalui dashboard yang informatif dan interaktif.</p>
+              <a href="#" class="read-more stretched-link"><span>Selengkapnya</span> <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
+          </div><!-- Akhir Item Layanan -->
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
             <div class="service-item item-red position-relative">
               <i class="bi bi-bounding-box-circles icon"></i>
-              <h3>Asperiores Commodi</h3>
-              <p>Non et temporibus minus omnis sed dolor esse consequatur. Cupiditate sed error ea fuga sit provident adipisci neque.</p>
-              <a href="#" class="read-more stretched-link"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+              <h3>Manajemen Siswa & Kelas</h3>
+              <p>Kelola data siswa, kelas, dan pembagian peserta ujian sesuai kategori atau jenjang pendidikan dengan praktis.</p>
+              <a href="#" class="read-more stretched-link"><span>Selengkapnya</span> <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
+          </div><!-- Akhir Item Layanan -->
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
             <div class="service-item item-indigo position-relative">
               <i class="bi bi-calendar4-week icon"></i>
-              <h3>Velit Doloremque.</h3>
-              <p>Cumque et suscipit saepe. Est maiores autem enim facilis ut aut ipsam corporis aut. Sed animi at autem alias eius labore.</p>
-              <a href="#" class="read-more stretched-link"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+              <h3>Penjadwalan Otomatis</h3>
+              <p>Ujian dapat dijadwalkan dan dibuka otomatis sesuai waktu yang ditentukan, termasuk batas waktu pengerjaan.</p>
+              <a href="#" class="read-more stretched-link"><span>Selengkapnya</span> <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
+          </div><!-- Akhir Item Layanan -->
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
             <div class="service-item item-pink position-relative">
               <i class="bi bi-chat-square-text icon"></i>
-              <h3>Dolori Architecto</h3>
-              <p>Hic molestias ea quibusdam eos. Fugiat enim doloremque aut neque non et debitis iure. Corrupti recusandae ducimus enim.</p>
-              <a href="#" class="read-more stretched-link"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+              <h3>Laporan & Analisis Hasil</h3>
+              <p>Hasil ujian langsung dirangkum dalam laporan lengkap per siswa, lengkap dengan analisis nilai dan grafik performa.</p>
+              <a href="#" class="read-more stretched-link"><span>Selengkapnya</span> <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
+          </div><!-- Akhir Item Layanan -->
 
         </div>
 
       </div>
 
-    </section><!-- /Services Section -->
-
-    <!-- Team Section -->
-    <section id="team" class="team section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Team</h2>
-        <p>Our hard working team</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-            <div class="team-member">
-              <div class="member-img">
-                <img src="{{ asset('assets/frontend/img/team/team-1.jpg')}}" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Walter White</h4>
-                <span>Chief Executive Officer</span>
-                <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut. Ipsum exercitationem iure minima enim corporis et voluptate.</p>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-            <div class="team-member">
-              <div class="member-img">
-                <img src="{{ asset('assets/frontend/img/team/team-2.jpg')}}" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Sarah Jhonson</h4>
-                <span>Product Manager</span>
-                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis. Voluptate sed quas reiciendis animi neque sapiente.</p>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-            <div class="team-member">
-              <div class="member-img">
-                <img src="{{ asset('assets/frontend/img/team/team-3.jpg')}}" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>William Anderson</h4>
-                <span>CTO</span>
-                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.</p>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
-            <div class="team-member">
-              <div class="member-img">
-                <img src="{{ asset('assets/frontend/img/team/team-4.jpg')}}" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Amanda Jepson</h4>
-                <span>Accountant</span>
-                <p>Rerum voluptate non adipisci animi distinctio et deserunt amet voluptas. Quia aut aliquid doloremque ut possimus ipsum officia.</p>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Team Section -->
+    </section><!-- /Bagian Layanan -->
 
     <!-- Clients Section -->
 
@@ -449,62 +349,49 @@
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
           <a href="index.html" class="d-flex align-items-center">
-            <span class="sitename">FlexStart</span>
+            <span class="sitename">TestHive</span>
           </a>
           <div class="footer-contact pt-3">
-            <p>A108 Adam Street</p>
-            <p>New York, NY 535022</p>
-            <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-            <p><strong>Email:</strong> <span>info@example.com</span></p>
+            <p>Jl. Pendidikan No. 108</p>
+            <p>Bandung, Jawa Barat 40123</p>
+            <p class="mt-3"><strong>Telepon:</strong> <span>+62 812 3456 7890</span></p>
+            <p><strong>Email:</strong> <span>support@testhive.id</span></p>
           </div>
         </div>
 
         <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Useful Links</h4>
+          <h4>Link Berguna</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Beranda</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Tentang Kami</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Layanan</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Syarat & Ketentuan</a></li>
           </ul>
         </div>
 
         <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Our Services</h4>
+          <h4>Layanan Kami</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Ujian Online</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Bank Soal</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Penilaian Otomatis</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Laporan Hasil</a></li>
           </ul>
         </div>
 
         <div class="col-lg-4 col-md-12">
-          <h4>Follow Us</h4>
-          <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
-          <div class="social-links d-flex">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
-          </div>
+          <h4>Ikuti Kami</h4>
+          <p>Dapatkan informasi terbaru seputar fitur dan pembaruan TestHive melalui media sosial kami.</p>
         </div>
 
       </div>
     </div>
 
     <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">FlexStart</strong> <span>All Rights Reserved</span></p>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
+      <p>© <span>Hak Cipta</span> <strong class="px-1 sitename">TestHive</strong> <span>Seluruh Hak Dilindungi</span></p>
     </div>
-
   </footer>
+
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

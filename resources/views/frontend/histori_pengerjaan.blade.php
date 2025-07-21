@@ -123,20 +123,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        <div class="d-flex flex-column flex-sm-row gap-2 justify-content-md-end">
-                            <button type="button" class="btn btn-success d-flex align-items-center justify-content-center" 
-                                    onclick="exportToExcel()">
-                                <i class="ti ti-file-spreadsheet me-2"></i>
-                                <span class="d-none d-sm-inline">Export</span> Excel
-                            </button>
-                            <button type="button" class="btn btn-danger d-flex align-items-center justify-content-center" 
-                                    onclick="exportToPDF()">
-                                <i class="ti ti-file-type-pdf me-2"></i>
-                                <span class="d-none d-sm-inline">Export</span> PDF
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

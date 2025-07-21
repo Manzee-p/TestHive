@@ -19,6 +19,23 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false]);
 
+Route::get('/home', function () {
+    $user = Auth::user();
+    
+    if ($user) {
+        if ($user->isAdmin == '1' || $user->isAdmin == '2') {
+            // Admin diarahkan langsung ke dashboard
+            return redirect()->route('dashboard');
+        } else {
+            // User biasa diarahkan ke halaman welcome terlebih dahulu
+            return redirect('/');
+        }
+    }
+    
+    return redirect()->route('login');
+})->middleware('auth')->name('home');
+
+
 // Quiz routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [FrontendController::class, 'index'])->name('dashboard');
@@ -33,28 +50,33 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/quiz/{id}/detail', [FrontendController::class, 'detail'])->name('quiz.detail');
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', Admin::class]], function () {
     Route::get('/', [BackendController::class, 'index'])->name('admin.quiz-terbaru');
+    Route::get('/dashboard', [BackendController::class, 'index'])->name('admin.dashboard');
+    
     Route::resource('quiz', QuizController::class);
-
     Route::patch('/quiz/{id}/toggle-aktivasi', [QuizController::class, 'toggleAktivasi'])->name('quiz.toggleAktivasi');
 
-    // ===== FITUR BARU: ADMIN HASIL QUIZ =====
     Route::get('/hasil-keseluruhan', [QuizController::class, 'hasilKeseluruhan'])->name('quiz.hasil.keseluruhan');
     Route::get('/hasil/{hasilId}/detail-admin', [QuizController::class, 'detailHasilAdmin'])->name('quiz.hasil.detail');
     Route::delete('/hasil/{hasilId}/hapus', [QuizController::class, 'hapusHasil'])->name('quiz.hasil.hapus');
-    // ===== END FITUR BARU =====   
 
-    // Essay Grading Routes - Tambahan untuk sistem penilaian esai
     Route::prefix('quiz/essay')->name('quiz.essay.')->group(function () {
+        // Main grading page
         Route::get('/grading', [QuizController::class, 'essayGrading'])->name('grading');
+        
+        // Single essay grading
         Route::get('/grade/{detailId}', [QuizController::class, 'gradeEssay'])->name('grade');
         Route::post('/grade/{detailId}', [QuizController::class, 'storeEssayGrade'])->name('store-grade');
-        Route::post('/bulk-grade', [QuizController::class, 'bulkGradeEssay'])->name('bulk-grade');
+        
+        // Multiple essays grading
+        Route::post('/grade-multiple', [QuizController::class, 'gradeMultipleEssay'])->name('grade-multiple');
+        Route::get('/grade-user/{userId}', [QuizController::class, 'gradeUserEssays'])->name('grade-user');
+        
+        // Statistics
         Route::get('/stats', [QuizController::class, 'essayGradingStats'])->name('stats');
-        // Tambahan untuk mass grading
+        
+        // Mass grading untuk soal tertentu
         Route::get('/mass-grade/{soal}', [QuizController::class, 'massGradeEssay'])->name('mass-grade');
     });
 

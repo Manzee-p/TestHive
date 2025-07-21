@@ -881,9 +881,6 @@
                 <i class="ti ti-arrow-left me-2"></i>Kembali ke Dashboard
             </a>
             <div class="d-flex gap-2">
-                <button class="btn btn-success" onclick="printResult()">
-                    <i class="ti ti-printer me-2"></i>Cetak Hasil
-                </button>
                 @if ($hasil->quiz->status === 'Umum')
                     <button class="btn btn-info" onclick="shareResult()">
                         <i class="ti ti-share me-2"></i>Bagikan

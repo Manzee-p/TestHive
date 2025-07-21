@@ -64,8 +64,8 @@
               <!-- Logo -->
               <div class="app-brand justify-content-center">
                 <a href="index.html" class="app-brand-link d-flex align-items-center" style="gap: 2px;">
-                  <img src="{{ asset('assets/frontend/img/TestHive_logo.png') }}" alt="TestHive Logo" style="height: 100px; margin-right: 4px;">
-                  <span class="app-brand-text demo text-heading fw-bold" style="font-size: 1.6rem; line-height: 1;">TestHive</span>
+                  <img src="{{ asset('assets/frontend/img/TestHive_logo4.png') }}" alt="TestHive Logo" style="height: 50px; margin-right: 4px;">
+                  <span class="app-brand-text demo text-heading">TestHive</span>
                 </a>
               </div>
                 <!-- /Logo -->
@@ -74,7 +74,7 @@
               <form id="formAuthentication" class="mb-6" action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="mb-6">
-                  <label for="email" class="form-label">Email or Username</label>
+                  <label for="email" class="form-label">Masukan Email atau Username</label>
                   <input
                     type="text"
                     class="form-control @error('email') is-invalid @enderror"
@@ -124,13 +124,6 @@
                   <button class="btn btn-primary d-grid w-100" type="submit">Login</button>
                 </div>
               </form>
-
-              <p class="text-center">
-                <span>New on our platform?</span>
-                <a href="auth-register-basic.html">
-                  <span>Create an account</span>
-                </a>
-              </p>
             </div>
           </div>
           <!-- /Register -->

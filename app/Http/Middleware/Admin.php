@@ -16,10 +16,18 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->isAdmin == '1' || Auth::user()->isAdmin == '2' ) {
-            return $next($request);
-        } else {
-            return abort(403);
+        // Cek apakah user sudah login
+        if (!Auth::check()) {
+            return redirect()->route('login');
         }
+
+        $user = Auth::user();
+        
+        if ($user->isAdmin == '1' || $user->isAdmin == '2') {
+            return $next($request);
+        } 
+        
+        return redirect()->route('dashboard')
+            ->with('error', 'Akses ditolak. Anda tidak memiliki hak akses admin.');
     }
 }

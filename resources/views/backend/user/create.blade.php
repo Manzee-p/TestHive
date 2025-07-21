@@ -116,7 +116,6 @@
                                         class="form-select @error('isAdmin') is-invalid @enderror" 
                                         required>
                                     <option value="" disabled selected>Pilih Role...</option>
-                                    <option value="1" {{ old('isAdmin') == '1' ? 'selected' : '' }}>Admin</option>
                                     <option value="0" {{ old('isAdmin') == '0' ? 'selected' : '' }}>User</option>
                                 </select>
                                 @error('isAdmin')
